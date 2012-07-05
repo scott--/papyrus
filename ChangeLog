@@ -1,0 +1,1690 @@
+2010-05-27  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* demos/papyrus-demo/Makefile.am, demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/example_flasher.cpp: Added a demo of the new
+	  Flasher animator.
+	* papyrus/Makefile.am, papyrus/enums.h:
+	* papyrus/flasher.cpp, papyrus/flasher.h: Added Flasher which
+	  derives from Animator. Causes an object to change it's visibility
+	  status with each frame.
+	* papyrus/drawable.cpp: Add a RENDER_FORCE option to the cairo
+	  flags.
+	  
+	  Fixed a bug in Drawable that prevented the show()/hide() methods
+	  from effecting the visibility of objects.
+	* papyrus/affineanimator.cpp:
+
+2010-04-16  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, Makefile.am, configure.ac, papyrus.kdevelop,
+	  papyrus.spec.m4: ===== 0.13.2 =====
+	* papyrus/object.h: Bugfix in Drawable destructor now allows Object
+	  to properly
+	  inherit from sigc::trackable again.
+	* papyrus/group.cpp: Improve performance of Group::clear() method
+	  by changing from individual remove() calls to a more streamlined
+	  process that operates directly on the signal containers to
+	  disconnect them and then operates directly on the layers.
+	  
+	  This should significantly improve performance as the previous
+	  method performed several tree lookups for each removal and was
+	  probably had a run time of 3 * O(n lg(n)) + O(n) and the new
+	  method is approximately 4 * O(n)
+	* papyrus/drawable.cpp: Bugfix: Remove code in destructor to remove
+	  a child from a parent
+	  
+	  This was legacy from an older version and isn't needed now that
+	  parents own thier children in the scenegraph hierarcy, and the
+	  only way for an owned child to be destroyed is to be removed from
+	  the parent container; example using Group's remove() method.
+	* doc/release-notes,
+	  doc/release-notes/papyrus-0.12.0-release-notes.txt,
+	  doc/release-notes/papyrus-0.12.1-release-notes.txt,
+	  doc/release-notes/papyrus-0.13.0-release-notes.txt,
+	  doc/release-notes/papyrus-0.13.1-release-notes.txt:
+
+2010-04-01  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus/controller.h: Add default parameter to Controller
+	  constructor so derived classes can implicitly construct without
+	  an explicit string parameter
+
+2010-03-30  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus/group.h: Add default parameter to Group constructor so
+	  derived classes can implicitly construct without an explicit
+	  string parameter
+
+2009-12-09  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog: ===== 0.13.1 =====
+	* ChangeLog, Makefile.am, papyrus-extras/deltille.h,
+	  papyrus-extras/face.h, papyrus-extras/hextille.h,
+	  papyrus-extras/hilbert.h, papyrus-extras/kochcurve.h,
+	  papyrus-extras/kochsnowflake.h, papyrus-extras/quadrille.h,
+	  papyrus-extras/sierpinski.h, papyrus-extras/tiling.h,
+	  papyrus.kdevelop, papyrus.spec.m4, papyrus/annulus.h,
+	  papyrus/arc.h, papyrus/beziergon.h, papyrus/bezierline.h,
+	  papyrus/boxed.h, papyrus/canvas.h, papyrus/circle.h,
+	  papyrus/color.h, papyrus/drawable.h, papyrus/fill.h,
+	  papyrus/grid.h, papyrus/group.h, papyrus/handlebox.h,
+	  papyrus/image.h, papyrus/lineargradient.h, papyrus/marker.h,
+	  papyrus/path.h, papyrus/path_element.h, papyrus/polygon.h,
+	  papyrus/polyline.h, papyrus/radialgradient.h,
+	  papyrus/rectangle.h, papyrus/reference.h,
+	  papyrus/regularpolygon.h, papyrus/renderable.h, papyrus/shape.h,
+	  papyrus/stroke.h, papyrus/svg.h, papyrus/text.h,
+	  papyrus/utility.h: Fix an overload resolution scope issue by
+	  introducing the PAPYRUS_RENDERABLE() and PAPYRUS_DRAWABLE()
+	  macros to include a using directive.
+	* examples/shapes/shapes.cpp: Reorder the set stroke width call to
+	  be after a stroke has been created to prevent a segfault.
+	* examples/simple.cpp:
+
+2009-11-17  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, configure.ac, papyrus.h, papyrus.kdevelop:
+	* demos/papyrus-demo/Makefile.am, demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/example_LinearGradient.cpp,
+	  demos/papyrus-demo/example_RadialGradient.cpp,
+	  demos/papyrus-gtkmm-demo/Makefile.am,
+	  demos/papyrus-gtkmm-demo/demos.h,
+	  demos/papyrus-gtkmm-demo/example_lineargradient.cpp:
+	* papyrus-gtkmm/Makefile.am, papyrus-gtkmm/gradientstopwidget.cpp,
+	  papyrus-gtkmm/gradientstopwidget.h, papyrus-gtkmm/viewport.h:
+	* papyrus-gtkmm/scrolledviewport.cpp: Fix bug in ScrolledViewport
+	  that prevented redraws from occurring properly
+	* papyrus-extras/deltille.cpp, papyrus-extras/deltille.h,
+	  papyrus-extras/face.cpp, papyrus-extras/face.h,
+	  papyrus-extras/factory.cpp, papyrus-extras/hextille.cpp,
+	  papyrus-extras/hextille.h, papyrus-extras/quadrille.cpp,
+	  papyrus-extras/quadrille.h, papyrus-extras/tiling.cpp,
+	  papyrus-extras/tiling.h:
+	* papyrus/svg.cpp:
+	* papyrus/text.cpp, papyrus/text.h:
+	* papyrus/shape.cpp, papyrus/shape.h, papyrus/stroke.cpp,
+	  papyrus/stroke.h:
+	* papyrus/rgba.cpp:
+	* papyrus/renderable.h: Added cairo context wrapper to include
+	  rendering state
+	* papyrus/rectangle.cpp, papyrus/rectangle.h,
+	  papyrus/reference.cpp, papyrus/reference.h:
+	* papyrus/radialgradient.cpp, papyrus/radialgradient.h: Radial
+	  gradient paint
+	* papyrus/primitives.h:
+	* papyrus/path_element.cpp, papyrus/path_element.h,
+	  papyrus/polygon.cpp, papyrus/polygon.h:
+	* papyrus/polyline.cpp, papyrus/polyline.h: Restructured Vertex as
+	  a struct based on the Point primitive
+	* papyrus/path.cpp, papyrus/path.h:
+	* papyrus/paint.cpp, papyrus/paint.h: Restructured as a hierarchy
+	  parent for all paints and moved solid color paints in Color
+	* papyrus/marker.cpp, papyrus/marker.h:
+	* papyrus/image.cpp, papyrus/image.h:
+	* papyrus/lineargradient.cpp, papyrus/lineargradient.h: Linear
+	  gradient paint
+	* papyrus/group.cpp, papyrus/group.h:
+	* papyrus/grid.cpp, papyrus/grid.h:
+	* papyrus/gradient.cpp, papyrus/gradient.h: Base class for gradient
+	  paints
+	* papyrus/fill.cpp, papyrus/fill.h:
+	* papyrus/enums.h: Added enums for gradient support and context
+	  wrapper states
+	* papyrus/drawable.cpp, papyrus/drawable.h:
+	* papyrus/color.cpp, papyrus/color.h: Added class for solid color
+	  paints
+	* papyrus/boxed.cpp, papyrus/boxed.h, papyrus/canvas.cpp,
+	  papyrus/canvas.h, papyrus/circle.cpp, papyrus/circle.h:
+	* papyrus/Makefile.am:
+	* papyrus/annulus.cpp, papyrus/annulus.h, papyrus/arc.cpp,
+	  papyrus/arc.h, papyrus/beziergon.cpp, papyrus/beziergon.h,
+	  papyrus/bezierline.cpp, papyrus/bezierline.h:
+
+2009-09-01  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, papyrus.kdevelop: ===== 0.12.1 =====
+	* papyrus.spec.m4:
+	* papyrus.kdevelop:
+	* papyrus-extras.h:
+	* configure.ac:
+	* Makefile.am:
+	* papyrus/shape.cpp, papyrus/shape.h:
+	* papyrus-extras/Makefile.am, papyrus-extras/face.cpp,
+	  papyrus-extras/face.h, papyrus-extras/factory.cpp,
+	  papyrus-extras/factory.h:
+	* papyrus-extras/deltille.cpp, papyrus-extras/deltille.h,
+	  papyrus-extras/hextille.cpp, papyrus-extras/hextille.h,
+	  papyrus-extras/quadrille.cpp, papyrus-extras/quadrille.h,
+	  papyrus-extras/tiling.cpp, papyrus-extras/tiling.h:
+	* papyrus-gtkmm/scrolledviewport.cpp,
+	  papyrus-gtkmm/scrolledviewport.h:
+	* demos/papyrus-demo/example_drawables.cpp:
+	* demos/Makefile.am:
+
+2009-08-05  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, configure.ac: ===== 0.12.0 =====
+	* ., ChangeLog, Makefile.am, autogen.sh, demos, demos/papyrus-demo,
+	  demos/papyrus-extras-demo, demos/papyrus-gtkmm-demo, doc,
+	  doc/Makefile.am, examples, examples/button,
+	  examples/color_schemes, examples/pick, examples/shapes,
+	  examples/simple_zoom, examples/viewbox, m4, papyrus-extras,
+	  papyrus-gtkmm, papyrus-gtkmm.h, papyrus.h, papyrus.kdevelop,
+	  papyrus.spec.m4:
+	* acinclude.m4[DEL]:
+	* m4/ac_cxx_compile_stdcxx_0x.m4, m4/ax_prefix_config_h.m4:
+	* m4:
+	* configure.ac[CPY], configure.in[DEL]:
+	* papyrus-gtkmm, papyrus-gtkmm/Makefile.am:
+	* papyrus-gtkmm/viewport.cpp, papyrus-gtkmm/viewport.h: Added a
+	  signal to be emitted when the canvas is replaced
+	* papyrus-gtkmm/scrolledviewport.cpp,
+	  papyrus-gtkmm/scrolledviewport.h: Added ScrolledViewport widget
+	* papyrus-extras:
+	* papyrus-extras/Makefile.am:
+	* papyrus/Makefile.am, papyrus/drawablecontainer.h,
+	  papyrus/selector.cpp:
+	* papyrus/canvas.cpp, papyrus/canvas.h: Extended and fixed
+	  scrolling support
+	* papyrus/drawable.cpp, papyrus/drawable.h: Added an alpha drawing
+	  mode
+	  
+	  Added a signal emitted when the extents are changed
+	  
+	  Reviewed const methods and added const to several that should
+	  have been const
+	* papyrus/drawableset.cpp, papyrus/drawableset.h: Renamed insert()
+	  method to add() to make syntax consistent with Group's syntax
+	* papyrus/event.h: Added button id and combination enumerations
+	* papyrus/group.cpp, papyrus/group.h: Added intermediate drawing
+	  mode to allow for more advanced compositing
+	* papyrus/rectangle.cpp, papyrus/rectangle.h: Added corner radius
+	  parameter to rectangles to allow for rounded rectangles
+	* papyrus/region.cpp, papyrus/region.h: Added a set_lrtb()
+	  convenience method
+	* papyrus/zoomer.cpp, papyrus/zoomer.h: Added Zoomer controller
+	* papyrus-venn, papyrus-venn/Makefile.am:
+	* demos, demos/Makefile.am, demos/papyrus-demo,
+	  demos/papyrus-demo/example_affine_controller.cpp,
+	  demos/papyrus-demo/example_operators.cpp,
+	  demos/papyrus-demo/example_rotator.cpp,
+	  demos/papyrus-demo/example_scaler.cpp,
+	  demos/papyrus-demo/example_translator.cpp,
+	  demos/papyrus-extras-demo,
+	  demos/papyrus-extras-demo/example_affine_controller.cpp,
+	  demos/papyrus-extras-demo/example_rotator.cpp,
+	  demos/papyrus-extras-demo/example_scaler.cpp,
+	  demos/papyrus-extras-demo/example_translator.cpp,
+	  demos/papyrus-gtkmm-demo, demos/papyrus-gtkmm-demo/Makefile.am,
+	  demos/papyrus-gtkmm-demo/example_drawabletreeview.cpp,
+	  demos/papyrus-venn-demo, demos/papyrus-venn-demo/Makefile.am:
+	* demos/papyrus-gtkmm-demo/demos.h,
+	  demos/papyrus-gtkmm-demo/example_scrolledviewport.cpp: Added
+	  ScrolledViewport example
+	* demos/papyrus-demo/Makefile.am, demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/example_zoomer.cpp: Added Zoomer controller
+	  example
+
+2009-05-14  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, papyrus.kdevelop: 0.11.1
+	* .:
+	* svn2cl.authors:
+	* ., .folder.png, ChangeLog, ChangeLog.old, configure.in:
+	* papyrus:
+	* papyrus.spec.m4: Added doc subpackage
+	* unit-tests:
+	* papyrus/reference.cpp, papyrus/reference.h: Fixed the composed
+	  matrix and extents calculations
+	  
+	  Added a clear_referenced() method to remove the referenced object
+	  from the reference.
+	* papyrus/drawable.cpp, papyrus/drawable.h: Moved two the
+	  apply_external_matrices and calculate_composed_matrix methods to
+	  public in Drawable so they can be accessed by Reference.
+	  
+	  Also added a signal that is emitted with the composed matrix is
+	  invalidated so that Reference can watch the referenced drawable's
+	  signal and invalidate its matrix as well.
+	* papyrus/canvas.h: Added ohloh buttons to documentation
+	* examples/Makefile.am, examples/reference.cpp: Added new example
+	  of references provided by Julius Ziegler
+	* doc/Makefile.am:
+
+2009-03-18  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, configure.in, papyrus.kdevelop: ===== 0.11.0 =====
+	* demos/papyrus-demo/Makefile.am, demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/example_freeze_thaw.cpp: Added demo to test
+	  freezing/thawing
+	* papyrus/group.cpp: Fixed bug that unfroze children of frozen
+	  groups
+	* papyrus/drawable.cpp, papyrus/drawable.h, papyrus/enums.h,
+	  papyrus/group.cpp, papyrus/group.h, papyrus/image.cpp,
+	  papyrus/rectangle.cpp: Added freeze/thaw methods to Drawable that
+	  includes the ability of a group to freeze its current drawables.
+	  
+	  This resulted in the removal of the boolean redraw parameter on
+	  many functions since the same effect can be achieved by enclosing
+	  the respective calls with a freeze/thaw pair.
+
+2009-03-17  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus/canvas.cpp, papyrus/canvas.h: Bug fix: Fixes a missing
+	  const declaration at the end of the draw() method that kept the
+	  Canvas reimplementation of draw() from being called, thus causing
+	  the background to not be rendered. Thanks again to Tim Niemueller
+	  for catching and fixing this one.
+	* demos/papyrus-demo/example_SVG.cpp:
+	* unit-tests/papyrus_unit_tests.cpp:
+	* unit-tests/Makefile.am:
+	* papyrus/drawable.cpp, papyrus/drawable.h,
+	  unit-tests/drawablematrixtests.cpp,
+	  unit-tests/drawablematrixtests.h: This changes how external
+	  matrix changed signals are handled and fixes a bug that didn't
+	  disconnect the changed signal when a matrix was removed.
+	  
+	  This should improve the performance when multiple instances of
+	  the same external matrix are applied as well.
+	  
+	  Additionally, there is a unit test added to check the reference
+	  counting of external matrices.
+	* papyrus/drawable.cpp: Bug: Fix invalid list iterators when
+	  removing matrices. Thanks to Tim Niemueller for catching these.
+
+2009-03-06  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, configure.in, papyrus.kdevelop, papyrus.spec.m4: =====
+	  0.10.2 =====
+	* papyrus/matrix.cpp, papyrus/matrix.h: Added three methods for
+	  working with inverse matrices to Matrix.
+	  
+	  Matrix::inverse() returns an inverted matrix as opposed to the
+	  current invert() which acts upon the matrix.
+	  
+	  Matrix::transform_distance_inverse() is like
+	  Matrix::transform_distance() except it transforms using the
+	  inverse matrix
+	  
+	  Matrix::transform_point_inverse() is like
+	  Matrix::transform_point() except it transforms using the inverse
+	  matrix
+	* papyrus/group.cpp: Fixed bug in Group::inside() that was
+	  transforming test point with matrix instead of inverted matrix
+	* papyrus/canvas.cpp, papyrus/canvas.h: Changed select() return
+	  type to Selection typedef
+	* examples/pick/pick_simple.cpp: Changed the example to include an
+	  intermediary group and apply translation/rotation transforms to
+	  the rectangle.
+
+2009-03-05  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, Makefile.am, configure.in, papyrus.kdevelop,
+	  papyrus.spec.m4: ===== 0.10.1 =====
+	* examples/pick/Makefile.am, examples/pick/pick_main.cc,
+	  examples/pick/pick_simple.cpp, examples/pick/pick_simple.h:
+	  Cleaned up pick example to remove clutter.
+	  
+	  Prefixed files with pick_ to differentiate from other example
+	  files.
+	* examples/pick/main.cc[DEL],
+	  examples/pick/new_mexico_sacramentos_october_b_sm.png[DEL],
+	  examples/pick/simple.cpp[DEL], examples/pick/simple.h[DEL]:
+	* examples/shapes/shapes.cpp:
+	* papyrus/selector.h:
+	* papyrus/object.h:
+	* papyrus/group.cpp, papyrus/group.h: Added a typedef to a drawable
+	  vector named Selection
+	* papyrus/event.h: Added InterruptMarshaller to interrupt sigc
+	  signals and limit propagation to end when the first slot returns
+	  true.
+	  
+	  Added a typedef for an event signal that uses the
+	  InterruptMarshaller in Papyrus::Event::signal
+	* papyrus/controller.cpp, papyrus/controller.h: Added a
+	  handle_event(Event) method that is an alias for handle(Event) to
+	  more easily allow a signal to be connected with typecasting.
+	* doc/Makefile.am:
+	* papyrus-gtkmm/viewport.cpp, papyrus-gtkmm/viewport.h: Changed
+	  event signal handling adding a signal emitted for all events.
+	  
+	  Added a marshaller to limit signal emission to the first
+	  connected item to return true.
+	  
+	  Controllers added to the viewport now connect to the event
+	  signal.
+
+2009-02-25  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, Makefile.am, papyrus.kdevelop, papyrus.spec.m4: =====
+	  0.10.0 =====
+	* papyrus-gtkmm/linecapbuttonbox.cpp,
+	  papyrus-gtkmm/linejoinbuttonbox.cpp,
+	  papyrus/affinecontroller.cpp, papyrus/bezierline.cpp,
+	  papyrus/circle.cpp, papyrus/controller.cpp, papyrus/drawable.cpp,
+	  papyrus/fill.cpp, papyrus/handlebox.cpp, papyrus/matrix.cpp,
+	  papyrus/polyline.cpp, papyrus/region.cpp, papyrus/region.h,
+	  papyrus/regularpolygon.cpp, papyrus/rotator.cpp,
+	  papyrus/selector.cpp, papyrus/stroke.cpp, papyrus/svg.cpp:
+	  Cleanup misc compile time warnings
+	* papyrus/drawablewatcher.h, papyrus/utility.cpp,
+	  papyrus/utility.h: Fix issue with weak pointers in sets and maps
+	  for compilers that don't have a < operator defined for weak
+	  pointers.
+
+2009-02-23  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus/svg.cpp, papyrus/svg.h: Replaced expat parser with
+	  libxml++ based parser.
+	  Added initial support for linear gradients.
+	* papyrus/shape.cpp, papyrus/shape.h: Replaced std::string with
+	  Glib::ustring
+	  Changed FillStyle to Fill
+	  Added support for Paint
+	  Added support for setting attributes via SVG style
+	  attribute-value pairs
+	* papyrus/matrix.cpp, papyrus/matrix.h: Replaced std::string with
+	  Glib::ustring
+	  Added support for rotation methods to accept parameters in
+	  radians or degrees
+	  Replaced yacc/lex string parser with glibmm regular expression
+	* papyrus/group.cpp, papyrus/group.h: Replaced std::string with
+	  Glib::ustring
+	  Changed FillStyle to Fill
+	  Added support for Paint
+	  Added support for setting attributes via SVG style
+	  attribute-value pairs
+	  Added support for titles and descriptions on groups
+	  Added method to access children by name including a templatized
+	  method that will cast the child to a requested type if possible
+	  Added support for Paint dictionaries similar to SVG paint servers
+	  Added support for Drawable dictionaries that are not owned but
+	  not rendered similar to SVG defs sections
+	* papyrus/drawable.cpp, papyrus/drawable.h: Replaced std::string
+	  with Glib::ustring
+	  Changed FillStyle to Fill
+	  Added documentation on affine transformation methods
+	  Changed get/set_position to get/set_xy
+	  Added support for setting attributes via SVG style
+	  attribute-value pairs
+	  Fixed hack on redraw to use floor/ceiling of doubles when
+	  redrawing pixels
+	* papyrus/canvas.cpp, papyrus/canvas.h: Replaced std::string with
+	  Glib::ustring
+	  Changed background method to accept/return Paint
+	* papyrus/circle.cpp, papyrus/circle.h: Replaced std::string with
+	  Glib::ustring
+	  Changed FillStyle to Fill
+	  Added support for setting attributes via SVG style
+	  attribute-value pairs
+	  Reimplemented Drawable's extent calculcation to provide a quicker
+	  extent calculation that doesn't depend on drawing to a sidebuffer
+	* papyrus/rectangle.cpp, papyrus/rectangle.h: Replaced std::string
+	  with Glib::ustring
+	  Changed FillStyle to Fill
+	  Added support for setting attributes via SVG style
+	  attribute-value pairs
+	  Reimplemented Drawable's extent calculcation to provide a quicker
+	  extent calculation that doesn't depend on drawing to a sidebuffer
+	* papyrus/rgba.cpp, papyrus/rgba.h: Replaced std::string with
+	  Glib::ustring
+	  Changed FillStyle to Fill
+	  Added support for Paint
+	* papyrus/reference.cpp, papyrus/reference.h, papyrus/renderable.h:
+	  Replaced std::string with Glib::ustring
+	* papyrus/object.h: Replaced std::string with Glib::ustring
+	  Added top-level virtual method to set attributes using
+	  Attribute-Value pairs
+	* papyrus/paint.cpp, papyrus/paint.h: Added Paint to encapsulate
+	  Cairo::Pattern to support SVG style paint servers in the Group
+	  class
+	* papyrus/fill.cpp, papyrus/fill.h, papyrus/fillstyle.cpp[DEL],
+	  papyrus/fillstyle.h[DEL]: Changed from FillStyle to Fill
+	  Added support for Paint encapsulation of Cairo::Pattern
+	* papyrus/Makefile.am:
+	* papyrus/affineanimator.cpp, papyrus/affineanimator.h,
+	  papyrus/affinecontroller.cpp, papyrus/affinecontroller.h,
+	  papyrus/animator.cpp, papyrus/animator.h, papyrus/annulus.cpp,
+	  papyrus/annulus.h, papyrus/arc.cpp, papyrus/arc.h,
+	  papyrus/beziergon.cpp, papyrus/beziergon.h,
+	  papyrus/bezierline.cpp, papyrus/bezierline.h, papyrus/boxed.cpp,
+	  papyrus/boxed.h, papyrus/controller.cpp, papyrus/controller.h,
+	  papyrus/drawablecontroller.cpp, papyrus/drawablecontroller.h,
+	  papyrus/freehandsketcher.cpp, papyrus/freehandsketcher.h,
+	  papyrus/grid.cpp, papyrus/grid.h, papyrus/handlebox.cpp,
+	  papyrus/handlebox.h, papyrus/hexgrid.h, papyrus/image.cpp,
+	  papyrus/image.h, papyrus/marker.cpp, papyrus/marker.h,
+	  papyrus/path.cpp, papyrus/path.h, papyrus/path_element.cpp,
+	  papyrus/path_element.h, papyrus/polygon.cpp, papyrus/polygon.h,
+	  papyrus/polyline.cpp, papyrus/polyline.h,
+	  papyrus/regularpolygon.cpp, papyrus/regularpolygon.h,
+	  papyrus/text.cpp, papyrus/text.h: Changed to reflect renaming of
+	  FillStyle to Fill
+	  Replaced std::string with Glib::ustring
+	* papyrus/rotator.cpp, papyrus/rotator.h, papyrus/scaler.cpp,
+	  papyrus/scaler.h, papyrus/selector.cpp, papyrus/selector.h:
+	  Replaced std::string with Glib::ustring
+	* papyrus/stroke.cpp, papyrus/stroke.h: Added concept of Paint to
+	  encapsulate Cairo::Pattern
+	  Replaced std::string with Glib::ustring
+	  Added 'changed' name to signals
+	* papyrus/translator.cpp, papyrus/translator.h,
+	  papyrus/utility.cpp, papyrus/utility.h: Replaced std::string with
+	  Glib::ustring
+	* papyrus/svg_transform_lexer.ll[DEL],
+	  papyrus/svg_transform_parser.yy[DEL]: Removed svg transform
+	  lexer/parser and replaced with glibmm regular expressions
+	* papyrus/x11_color.cpp, papyrus/x11_color.h: Replaced std::string
+	  with Glib::ustring
+	* papyrus-extras/face.cpp, papyrus-extras/face.h,
+	  papyrus-extras/factory.cpp, papyrus-extras/factory.h,
+	  papyrus-extras/hilbert.cpp, papyrus-extras/hilbert.h,
+	  papyrus-extras/kochcurve.cpp, papyrus-extras/kochcurve.h,
+	  papyrus-extras/kochsnowflake.cpp, papyrus-extras/kochsnowflake.h,
+	  papyrus-extras/sierpinski.cpp, papyrus-extras/sierpinski.h:
+	  Replaced std::string with Glib::ustring
+	* papyrus-gtkmm/linewidthcombobox.cpp,
+	  papyrus-gtkmm/markerwidget.cpp, papyrus-gtkmm/strokewidget.cpp:
+	* examples/button/button.cpp,
+	  examples/color_schemes/color_schemes.cpp,
+	  examples/pick/simple.cpp, examples/shapes/shapes.cpp,
+	  examples/simple_zoom/simple.cpp, examples/viewbox/viewbox.cpp:
+	  Replaced std::string with Glib::ustring
+	* demos/papyrus-demo/Makefile.am,
+	  demos/papyrus-demo/demo-common.cc,
+	  demos/papyrus-demo/demo-common.h, demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/demowindow.cc,
+	  demos/papyrus-demo/demowindow.h,
+	  demos/papyrus-demo/example_boxed.cpp,
+	  demos/papyrus-demo/example_freehandsketcher.cpp,
+	  demos/papyrus-demo/example_handlebox_scaler.cpp,
+	  demos/papyrus-demo/example_selector.cpp,
+	  demos/papyrus-extras-demo/Makefile.am,
+	  demos/papyrus-extras-demo/demo-common.cc,
+	  demos/papyrus-extras-demo/demo-common.h,
+	  demos/papyrus-extras-demo/demowindow.cc,
+	  demos/papyrus-extras-demo/demowindow.h,
+	  demos/papyrus-extras-demo/example_freehandsketcher.cpp,
+	  demos/papyrus-extras-demo/example_handlebox_scaler.cpp,
+	  demos/papyrus-extras-demo/example_selector.cpp,
+	  demos/papyrus-gtkmm-demo/demo-common.cc,
+	  demos/papyrus-gtkmm-demo/demo-common.h,
+	  demos/papyrus-gtkmm-demo/demowindow.cc,
+	  demos/papyrus-gtkmm-demo/demowindow.h: Replaced std::string with
+	  Glib::ustring
+	* doc/Doxyfile, doc/Makefile.am, doc/doxygen_to_devhelp.xsl.m4:
+	* doc/doxygen.css: Fixed doxygen colors
+	* papyrus.h, papyrus.kdevelop, papyrus.spec.m4:
+	* Doxyfile[DEL]:
+	* configure.in: Added doc builds and dependencies on both glibmm
+	  and libxml++ for SVG support
+	* Makefile.am, acinclude.m4, aminclude.am[DEL]: Removed autoconf
+	  doxygen-doc options and build docs directly
+	* unit-tests/Makefile.am, unit-tests/papyrus_unit_tests.cpp:
+	* unit-tests/matrixparsertest.cpp, unit-tests/matrixparsertest.h:
+	  Added matrix string parsing unit tests
+	* unit-tests/simple_circle.svg, unit-tests/simple_groups.svg,
+	  unit-tests/simple_linear_gradient.svg,
+	  unit-tests/simple_path_triangle.svg,
+	  unit-tests/simple_reference.svg,
+	  unit-tests/simple_standalone.svg: Added SVG images to compare
+	  generated SVG unit test images to
+	* unit-tests/svgparsertest.cpp, unit-tests/svgparsertest.h: Added
+	  SVG parsing unit tests
+	* unit-tests/rectangleextentstest.cpp: Took out hacks on unit test
+	  values
+	* unit-tests/helper.cpp:
+	* unit-tests/helper.h: changed region comparison method to allow a
+	  small delta for doubles
+	* unit-tests/circleextentstest.cpp, unit-tests/circleextentstest.h:
+	  Added a new set of circle extent unit tests
+
+2009-02-06  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, Makefile.am, configure.in, papyrus.spec.m4: 0.9.0
+	* papyrus-extras-1.0.pc.in, papyrus-gtkmm-1.0.pc.in: Removed CFLAGS
+	  line since these packages don't need their own CFLAGS
+	  and instead rely on the CFLAGS in papyrus-1.0.pc which is pulled
+	  in
+	  though the Requires line.
+	* papyrus/canvas.h: Fix HTML line breaks in docs that Doxygen was
+	  complaining about
+	* doc/doxygen.css, doc/doxygen_footer.html,
+	  doc/doxygen_header.html:
+	* doc/images, doc/images/arc.png, doc/images/beziergon.png,
+	  doc/images/bezierline.png, doc/images/boxed.png,
+	  doc/images/bug-small.png, doc/images/bugs-small.png,
+	  doc/images/cairo-logo.png, doc/images/circle.png,
+	  doc/images/documents-small.png, doc/images/download-small.png,
+	  doc/images/envelope-small.png, doc/images/favicon.ico,
+	  doc/images/fedora-logo-small.png,
+	  doc/images/fedora-logo-tiny.png, doc/images/group.png,
+	  doc/images/gtk-logo-small.png, doc/images/gtkmm-logo.png,
+	  doc/images/guide_arc.png, doc/images/guide_beziergon.png,
+	  doc/images/guide_bezierline.png, doc/images/guide_boxed.png,
+	  doc/images/guide_circle.png, doc/images/guide_group.png,
+	  doc/images/guide_kochsnowflake.png,
+	  doc/images/guide_polygon_star.png,
+	  doc/images/guide_polygon_u.png, doc/images/guide_polyline.png,
+	  doc/images/guide_polyline_filled.png,
+	  doc/images/guide_rectangle.png,
+	  doc/images/guide_regularpolygon_apothem.png,
+	  doc/images/guide_regularpolygon_radius.png,
+	  doc/images/guide_text.png, doc/images/kochsnowflake.png,
+	  doc/images/lgplv3.png, doc/images/papyrus-icon3232.png,
+	  doc/images/papyrus-logo.png, doc/images/papyrus-tiled.png,
+	  doc/images/polygon_star.png, doc/images/polygon_u.png,
+	  doc/images/polyline.png, doc/images/polyline_filled.png,
+	  doc/images/rectangle.png, doc/images/regularpolygon_apothem.png,
+	  doc/images/regularpolygon_radius.png,
+	  doc/images/sourcecode-small.png, doc/images/text.png:
+	* papyrus.kdevelop:
+	* demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/example_affine_controller.cpp,
+	  demos/papyrus-demo/example_affineanimator.cpp,
+	  demos/papyrus-demo/example_drawables.cpp,
+	  demos/papyrus-demo/example_freehandsketcher.cpp,
+	  demos/papyrus-demo/example_handlebox_scaler.cpp,
+	  demos/papyrus-demo/example_markers.cpp,
+	  demos/papyrus-demo/example_operators.cpp,
+	  demos/papyrus-demo/example_rotator.cpp,
+	  demos/papyrus-demo/example_scaler.cpp,
+	  demos/papyrus-demo/example_selector.cpp,
+	  demos/papyrus-demo/example_translator.cpp,
+	  demos/papyrus-demo/example_viewbox.cpp:
+	* demos/papyrus-demo/example_boxed.cpp:
+	* demos/papyrus-demo/Makefile.am:
+	* demos/papyrus-extras-demo/Makefile.am,
+	  demos/papyrus-extras-demo/demos.h,
+	  demos/papyrus-extras-demo/example_affine_controller.cpp,
+	  demos/papyrus-extras-demo/example_affineanimator.cpp,
+	  demos/papyrus-extras-demo/example_drawables.cpp,
+	  demos/papyrus-extras-demo/example_freehandsketcher.cpp,
+	  demos/papyrus-extras-demo/example_handlebox_scaler.cpp,
+	  demos/papyrus-extras-demo/example_markers.cpp,
+	  demos/papyrus-extras-demo/example_operators.cpp,
+	  demos/papyrus-extras-demo/example_rotator.cpp,
+	  demos/papyrus-extras-demo/example_scaler.cpp,
+	  demos/papyrus-extras-demo/example_selector.cpp,
+	  demos/papyrus-extras-demo/example_translator.cpp,
+	  demos/papyrus-extras-demo/example_viewbox.cpp:
+	* demos/papyrus-gtkmm-demo/Makefile.am,
+	  demos/papyrus-gtkmm-demo/demos.h,
+	  demos/papyrus-gtkmm-demo/example_animatorbouncewidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_animatorframeintervalwidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_animatorframeratewidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_linecapbuttonbox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linecapcombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linejoinbuttonbox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linejoincombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linewidthcombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_markercombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_markerwidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_pixbuf.cpp,
+	  demos/papyrus-gtkmm-demo/example_strokewidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_viewport.cpp:
+	* demos/Makefile.am: Added support for autoconf --enable-demos
+	* examples/Makefile.am, examples/button/button.cpp,
+	  examples/button/button.h,
+	  examples/color_schemes/color_schemes.cpp,
+	  examples/pick/simple.cpp, examples/pick/simple.h,
+	  examples/shapes/shapes.cpp, examples/simple.cpp,
+	  examples/simple_zoom/simple.cpp, examples/simple_zoom/simple.h,
+	  examples/viewbox/viewbox.cpp:
+	* papyrus/image.cpp, papyrus/image.h: Updated to reflect changes in
+	  extents
+	* papyrus/Makefile.am:
+	* papyrus/boxed.cpp, papyrus/boxed.h: Now inherits from Group
+	  rather than Drawable and created a base class
+	  DrawableSingleContainer so Boxed only holds a single item.
+	* papyrus/canvas.cpp: Updated to reflect changes to extents
+	* papyrus/canvas.h: Added documentation to serve as papyrus home
+	  page
+	* papyrus/circle.cpp, papyrus/circle.h: Circle no longer inherits
+	  from Arc so it shouldn't include header
+	  
+	  Get rid of unnecessary cairo->begin_path() at beginning of draw
+	* papyrus/color_scheme.cpp:
+	* papyrus/drawable.cpp, papyrus/drawable.h: Modified the way
+	  extents were being calculated that caused some problems with
+	  display in viewboxes
+	* papyrus/enums.h:
+	* papyrus/group.cpp, papyrus/group.h: Removed the concept of
+	  drawing layers.
+	  
+	  Added a has(Drawable::pointer) method
+	  
+	  Updated to reflect changes in extents
+	* papyrus/handlebox.cpp, papyrus/handlebox.h:
+	* papyrus.spec.m4: Fix unowned directories
+	* COPYING: Updated license from GPL to LGPLv3
+	* configure.in: Added autoconf options to enable/disable building
+	  of papyrus-gtkmm, papyrus-extras, demos, examples and unit-tests.
+	* unit-tests, unit-tests/Makefile.am,
+	  unit-tests/canvasextentstest.cpp, unit-tests/canvasextentstest.h,
+	  unit-tests/groupextentstest.cpp, unit-tests/groupextentstest.h,
+	  unit-tests/helper.h, unit-tests/papyrus_unit_tests.cpp,
+	  unit-tests/rectangleextentstest.cpp,
+	  unit-tests/rectangleextentstest.h: Added unit tests based on
+	  cppunit
+	* Makefile.am:
+	* papyrus/marker.cpp:
+	* papyrus/matrix.cpp, papyrus/matrix.h: Added a static member
+	  Matrix::Identity
+	* papyrus/object.h: Changed signal methods to return references
+	  rather than values
+	  
+	  Added documentation
+	* papyrus-gtkmm/utility.cpp, papyrus-gtkmm/utility.h: Added
+	  cairo_image_to_pixbuf() to convert cairo image surfaces to
+	  pixbufs
+	* papyrus-gtkmm/Makefile.am, papyrus-gtkmm/enums.h,
+	  papyrus-gtkmm/linecapbuttonbox.cpp,
+	  papyrus-gtkmm/linecapbuttonbox.h,
+	  papyrus-gtkmm/linecapcombobox.cpp,
+	  papyrus-gtkmm/linecapcombobox.h,
+	  papyrus-gtkmm/linejoinbuttonbox.cpp,
+	  papyrus-gtkmm/linejoinbuttonbox.h,
+	  papyrus-gtkmm/linejoincombobox.cpp,
+	  papyrus-gtkmm/linejoincombobox.h,
+	  papyrus-gtkmm/linewidthcombobox.cpp,
+	  papyrus-gtkmm/linewidthcombobox.h,
+	  papyrus-gtkmm/markercombobox.cpp, papyrus-gtkmm/markercombobox.h,
+	  papyrus-gtkmm/markerwidget.cpp, papyrus-gtkmm/markerwidget.h,
+	  papyrus-gtkmm/strokedialog.cpp, papyrus-gtkmm/strokedialog.h,
+	  papyrus-gtkmm/strokewidget.cpp, papyrus-gtkmm/strokewidget.h,
+	  papyrus-gtkmm/viewport.cpp, papyrus-gtkmm/viewport.h:
+	* papyrus-gtkmm/scrolleddrawabletreeview.cpp,
+	  papyrus-gtkmm/scrolleddrawabletreeview.h:
+	* papyrus-gtkmm/animatorbouncewidget.cpp,
+	  papyrus-gtkmm/animatorbouncewidget.h,
+	  papyrus-gtkmm/animatorframeintervalwidget.cpp,
+	  papyrus-gtkmm/animatorframeintervalwidget.h,
+	  papyrus-gtkmm/animatorframeratewidget.cpp,
+	  papyrus-gtkmm/animatorframeratewidget.h: Animators now have a
+	  private constructor and smart pointer create methods
+	* papyrus-gtkmm/drawabletreeview.cpp,
+	  papyrus-gtkmm/drawabletreeview.h:
+	* papyrus.h:
+	* papyrus-gtkmm-1.0.pc.in:
+	* papyrus-extras-1.0.pc.in:
+	* papyrus-1.0.pc.in:
+	* papyrus-gtkmm.h: Added DrawableTreeView
+	* papyrus-extras.h:
+
+2009-02-05  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* Doxyfile: Ran doxygen -u
+	* templates/cpp, templates/h:
+	* papyrus-extras/factory.cpp:
+	* papyrus-extras/factory.h: Added annulus drawable to factory
+	* papyrus-extras/face.cpp: Drawables need to use
+	  invalidate_extents() now since they can't directly access the
+	  extents invalid flag
+	* papyrus-extras/Makefile.am: Added support for configure
+	  --with-extras option
+	* papyrus-extras/example_image.h, papyrus-extras/face.h,
+	  papyrus-extras/hilbert.cpp, papyrus-extras/hilbert.h,
+	  papyrus-extras/kochcurve.cpp, papyrus-extras/kochcurve.h,
+	  papyrus-extras/kochsnowflake.cpp, papyrus-extras/kochsnowflake.h,
+	  papyrus-extras/sierpinski.cpp, papyrus-extras/sierpinski.h:
+	* papyrus/path_element.h: Added weak pointer typedef
+	* papyrus/polyline.cpp, papyrus/polyline.h: Changed extents() to
+	  reflect changes in ancestor's virtual method
+	* papyrus/reference.cpp, papyrus/reference.h: Changed extents() to
+	  reflect changes in ancestor's virtual method
+	* papyrus/region.cpp, papyrus/region.h: Removed inheritance from
+	  Object to make leaner without string id
+	* papyrus/renderable.h:
+	* papyrus/affineanimator.cpp, papyrus/affineanimator.h,
+	  papyrus/affinecontroller.cpp, papyrus/affinecontroller.h,
+	  papyrus/animator.cpp, papyrus/animator.h, papyrus/controller.cpp,
+	  papyrus/controller.h, papyrus/drawablecontainer.cpp[DEL],
+	  papyrus/drawablecontainer.h,
+	  papyrus/drawablecontainerinterface.h[DEL],
+	  papyrus/drawablecontroller.cpp, papyrus/drawablecontroller.h,
+	  papyrus/drawableset.cpp, papyrus/drawableset.h,
+	  papyrus/drawablesinglecontainer.cpp,
+	  papyrus/drawablesinglecontainer.h, papyrus/drawablewatcher.cpp,
+	  papyrus/drawablewatcher.h, papyrus/freehandsketcher.cpp,
+	  papyrus/freehandsketcher.h, papyrus/rotator.cpp,
+	  papyrus/rotator.h, papyrus/scaler.cpp, papyrus/scaler.h,
+	  papyrus/selector.cpp, papyrus/selector.h, papyrus/translator.cpp,
+	  papyrus/translator.h: Completely restructured controller
+	  hierarchy
+	* papyrus/arc.cpp: Added checks to internal lines to prevent lines
+	  being drawn if arc is a complete circle.
+	  
+	  Added redraw when angles change.
+	* papyrus/arc.h:
+	* papyrus/bezierline.cpp: Removed extents invalidation
+	* papyrus/annulus.cpp, papyrus/annulus.h: New shape
+	* papyrus/beziergon.cpp, papyrus/beziergon.h, papyrus/bezierline.h,
+	  papyrus/color_scheme.h, papyrus/color_utility.h, papyrus/event.h,
+	  papyrus/fillstyle.cpp, papyrus/fillstyle.h, papyrus/grid.cpp,
+	  papyrus/grid.h, papyrus/hexgrid.cpp, papyrus/hexgrid.h,
+	  papyrus/hsba.cpp, papyrus/hsba.h, papyrus/hsla.cpp,
+	  papyrus/hsla.h, papyrus/marker.h, papyrus/path.cpp,
+	  papyrus/path.h, papyrus/path_data_lexer.ll,
+	  papyrus/path_data_parser.yy, papyrus/path_element.cpp,
+	  papyrus/pointer.h, papyrus/polygon.cpp, papyrus/polygon.h,
+	  papyrus/rectangle.cpp, papyrus/rectangle.h,
+	  papyrus/regularpolygon.cpp, papyrus/regularpolygon.h,
+	  papyrus/rgba.cpp, papyrus/rgba.h:
+	* papyrus/shape.cpp: Invalidate extents when stroke changes
+	* papyrus/svg.h: Bugfix: Added missing SVG class name macro
+	* papyrus/shape.h, papyrus/stroke.cpp, papyrus/stroke.h,
+	  papyrus/svg.cpp, papyrus/svg_transform_lexer.ll,
+	  papyrus/svg_transform_parser.yy, papyrus/text.cpp,
+	  papyrus/text.h:
+	* papyrus/utility2.cpp, papyrus/utility2.h: Added a second utility
+	  set for utilities that must be included after drawable.h
+	* papyrus/utility.cpp, papyrus/utility.h, papyrus/viewbox.cpp,
+	  papyrus/viewbox.h:
+	* papyrus/x11_color.cpp, papyrus/x11_color.h,
+	  papyrus/x11_color1.cpp, papyrus/x11_color2.cpp,
+	  papyrus/x11_color3.cpp, papyrus/x11_color4.cpp:
+	* papyrus/yuva.cpp, papyrus/yuva.h:
+
+2009-01-15  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* configure.in, papyrus.spec.m4: 0.8.1
+	* ChangeLog, Makefile.am: 0.8.1
+	* papyrus-extras-1.0.pc.in, papyrus-gtkmm-1.0.pc.in: Fix autoconf
+	  pkgconfig version variable
+
+2009-01-14  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, Doxyfile, Makefile.am, configure.in, papyrus.kdevelop,
+	  papyrus.spec.m4: 0.8.0
+
+2009-01-13  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus/svg_transform_parser.yy: Changed svg_transform_parser()
+	  to return Matrix::pointer rather than Matrix object.
+	* papyrus/svg.cpp: Fixed old code to set SVG transform attribute
+	  into SVG drawable via new add_matrix() method.
+	* papyrus/matrix.cpp, papyrus/matrix.h: Added operator= overload
+	  for Matrix::pointer and changed svg_transform_parser() to return
+	  Matrix::pointer rather than Matrix object.
+	* papyrus/drawable.cpp, papyrus/drawable.h: Cleanup
+	* TODO: Updated for 0.8.0
+	* papyrus-extras/factory.cpp: Removed translation of SVG factory
+	  demo
+	* demos/papyrus-demo/demos.h: Commented out demos that aren't
+	  working now
+	* papyrus/drawable.cpp: Get rid of debugging statement
+	* papyrus/matrix.cpp, papyrus/matrix.h: Removed first parameter
+	  from parameterized constructor to avoid issues with identity
+	  constructor.
+	  
+	  Added overloads of * and *= operators for smart pointer matrices.
+	* papyrus/drawable.cpp, papyrus/drawable.h: Added external matrices
+	  primarily for controllers.
+	* papyrus/canvas.cpp: Added external matrix composition to
+	  calculate_matrix()
+	* papyrus/affinecontroller.cpp, papyrus/affinecontroller.h:
+	  Adjusted for Drawable's external matrix model
+
+2009-01-05  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* ChangeLog, Makefile.am: 0.7.91
+	* Makefile.am, configure.in: Preparing for 0.7.91 release
+	* doc/reference[DEL]:
+	* demos/papyrus-demo/example_freehandsketcher.cpp: Fixed freehand
+	  sketcher example that didn't set the stroke so drawing didn't
+	  occur
+	* papyrus/grid.cpp:
+	* papyrus/grid.cpp: Fixed segfault when borders are enabled and
+	  stroke style isn't set
+	* papyrus/papyrus-config.h[DEL]:
+	* papyrus-extras/hilbert.h, papyrus-extras/kochcurve.h,
+	  papyrus-extras/kochsnowflake.h, papyrus-extras/sierpinski.h,
+	  papyrus/arc.h, papyrus/beziergon.h, papyrus/bezierline.h,
+	  papyrus/boxed.h, papyrus/circle.h, papyrus/grid.h,
+	  papyrus/image.h, papyrus/marker.h, papyrus/polygon.h,
+	  papyrus/polyline.h, papyrus/rectangle.h, papyrus/region.h,
+	  papyrus/regularpolygon.h, papyrus/rotator.h, papyrus/scaler.h,
+	  papyrus/stroke.h, papyrus/text.h, papyrus/translator.h,
+	  papyrus/viewbox.h: Fix virtual destructors
+	* papyrus.spec.m4:
+	* Makefile.am:
+
+2008-12-31  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* Makefile.am, acinclude.m4, aminclude.am, configure.in,
+	  papyrus.kdevelop:
+	* Doxyfile:
+	* papyrus/handlebox.cpp, papyrus/handlebox.h, papyrus/marker.h:
+	* demos/papyrus-extras-demo, demos/papyrus-extras-demo/Makefile.am,
+	  demos/papyrus-extras-demo/demo-common.cc,
+	  demos/papyrus-extras-demo/demo-common.h,
+	  demos/papyrus-extras-demo/demos.h,
+	  demos/papyrus-extras-demo/demowindow.cc,
+	  demos/papyrus-extras-demo/demowindow.h,
+	  demos/papyrus-extras-demo/example_affine_controller.cpp,
+	  demos/papyrus-extras-demo/example_affineanimator.cpp,
+	  demos/papyrus-extras-demo/example_drawables.cpp,
+	  demos/papyrus-extras-demo/example_freehandsketcher.cpp,
+	  demos/papyrus-extras-demo/example_handlebox_scaler.cpp,
+	  demos/papyrus-extras-demo/example_markers.cpp,
+	  demos/papyrus-extras-demo/example_operators.cpp,
+	  demos/papyrus-extras-demo/example_rotator.cpp,
+	  demos/papyrus-extras-demo/example_scaler.cpp,
+	  demos/papyrus-extras-demo/example_selector.cpp,
+	  demos/papyrus-extras-demo/example_translator.cpp,
+	  demos/papyrus-extras-demo/example_viewbox.cpp,
+	  demos/papyrus-extras-demo/main.cc,
+	  demos/papyrus-extras-demo/papyrus-icon.png,
+	  demos/papyrus-extras-demo/textwidget.cc,
+	  demos/papyrus-extras-demo/textwidget.h:
+	* demos/Makefile.am:
+
+2008-12-24  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus/stroke.cpp: Fix of invalid use of assign operator for
+	  valarray --- thanks to Tim Niemueller for catching it
+	* papyrus/group.cpp:
+	* papyrus/canvas.cpp, papyrus/circle.cpp, papyrus/drawable.cpp,
+	  papyrus/drawable.h, papyrus/image.cpp, papyrus/rectangle.cpp,
+	  papyrus/rectangle.h: Affine elements are now private with
+	  protected accessors to ensure that the matrix is marked for
+	  recalculation when an element s changed.
+	* papyrus/boxed.cpp, papyrus/boxed.h:
+
+2008-11-10  Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+
+	* papyrus.kdevelop:
+	* doc/reference:
+	* Doxyfile, configure.in:
+	* papyrus/Makefile.am:
+	* examples/Makefile.am:
+	* configure.in:
+	* Makefile.am:
+	* doc:
+	* demos, demos/Makefile.am, demos/papyrus-demo,
+	  demos/papyrus-demo/Makefile.am,
+	  demos/papyrus-demo/demo-common.cc,
+	  demos/papyrus-demo/demo-common.h, demos/papyrus-demo/demos.h,
+	  demos/papyrus-demo/demowindow.cc,
+	  demos/papyrus-demo/demowindow.h,
+	  demos/papyrus-demo/example_affine_controller.cpp,
+	  demos/papyrus-demo/example_affineanimator.cpp,
+	  demos/papyrus-demo/example_drawables.cpp,
+	  demos/papyrus-demo/example_freehandsketcher.cpp,
+	  demos/papyrus-demo/example_handlebox_scaler.cpp,
+	  demos/papyrus-demo/example_markers.cpp,
+	  demos/papyrus-demo/example_operators.cpp,
+	  demos/papyrus-demo/example_rotator.cpp,
+	  demos/papyrus-demo/example_scaler.cpp,
+	  demos/papyrus-demo/example_selector.cpp,
+	  demos/papyrus-demo/example_translator.cpp,
+	  demos/papyrus-demo/example_viewbox.cpp,
+	  demos/papyrus-demo/main.cc, demos/papyrus-demo/papyrus-icon.png,
+	  demos/papyrus-demo/textwidget.cc,
+	  demos/papyrus-demo/textwidget.h, demos/papyrus-gtkmm-demo,
+	  demos/papyrus-gtkmm-demo/Makefile.am,
+	  demos/papyrus-gtkmm-demo/demo-common.cc,
+	  demos/papyrus-gtkmm-demo/demo-common.h,
+	  demos/papyrus-gtkmm-demo/demos.h,
+	  demos/papyrus-gtkmm-demo/demowindow.cc,
+	  demos/papyrus-gtkmm-demo/demowindow.h,
+	  demos/papyrus-gtkmm-demo/example_animatorbouncewidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_animatorframeintervalwidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_animatorframeratewidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_linecapbuttonbox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linecapcombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linejoinbuttonbox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linejoincombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_linewidthcombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_markercombobox.cpp,
+	  demos/papyrus-gtkmm-demo/example_markerwidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_pixbuf.cpp,
+	  demos/papyrus-gtkmm-demo/example_strokewidget.cpp,
+	  demos/papyrus-gtkmm-demo/example_viewport.cpp,
+	  demos/papyrus-gtkmm-demo/main.cc,
+	  demos/papyrus-gtkmm-demo/papyrus-icon.png,
+	  demos/papyrus-gtkmm-demo/textwidget.cc,
+	  demos/papyrus-gtkmm-demo/textwidget.h:
+	* examples/button/Makefile.am, examples/button/button.cpp,
+	  examples/button/button.h, examples/button/main.cc,
+	  examples/color_schemes/Makefile.am,
+	  examples/color_schemes/color_schemes.cpp,
+	  examples/drawable_test[DEL]:
+	* examples, examples/button, examples/color_schemes,
+	  examples/drawable_test, examples/pick, examples/pick/Makefile.am,
+	  examples/pick/main.cc,
+	  examples/pick/new_mexico_sacramentos_october_b_sm.png,
+	  examples/pick/simple.cpp, examples/pick/simple.h,
+	  examples/shapes, examples/shapes/Makefile.am,
+	  examples/shapes/shapes.cpp, examples/simple.cpp,
+	  examples/simple_zoom, examples/simple_zoom/Makefile.am,
+	  examples/simple_zoom/new_mexico_desert_spring_sm.png,
+	  examples/simple_zoom/simple.cpp, examples/simple_zoom/simple.h,
+	  examples/viewbox, examples/viewbox/Makefile.am,
+	  examples/viewbox/viewbox.cpp:
+	* templates, templates/cpp, templates/h:
+	* papyrus-gtkmm, papyrus-gtkmm/Makefile.am,
+	  papyrus-gtkmm/animatorbouncewidget.cpp,
+	  papyrus-gtkmm/animatorbouncewidget.h,
+	  papyrus-gtkmm/animatorframeintervalwidget.cpp,
+	  papyrus-gtkmm/animatorframeintervalwidget.h,
+	  papyrus-gtkmm/animatorframeratewidget.cpp,
+	  papyrus-gtkmm/animatorframeratewidget.h, papyrus-gtkmm/enums.h,
+	  papyrus-gtkmm/linecapbuttonbox.cpp,
+	  papyrus-gtkmm/linecapbuttonbox.h,
+	  papyrus-gtkmm/linecapcombobox.cpp,
+	  papyrus-gtkmm/linecapcombobox.h,
+	  papyrus-gtkmm/linejoinbuttonbox.cpp,
+	  papyrus-gtkmm/linejoinbuttonbox.h,
+	  papyrus-gtkmm/linejoincombobox.cpp,
+	  papyrus-gtkmm/linejoincombobox.h,
+	  papyrus-gtkmm/linewidthcombobox.cpp,
+	  papyrus-gtkmm/linewidthcombobox.h,
+	  papyrus-gtkmm/markercombobox.cpp, papyrus-gtkmm/markercombobox.h,
+	  papyrus-gtkmm/markerwidget.cpp, papyrus-gtkmm/markerwidget.h,
+	  papyrus-gtkmm/strokedialog.cpp, papyrus-gtkmm/strokedialog.h,
+	  papyrus-gtkmm/strokewidget.cpp, papyrus-gtkmm/strokewidget.h,
+	  papyrus-gtkmm/utility.cpp, papyrus-gtkmm/utility.h,
+	  papyrus-gtkmm/viewport.cpp, papyrus-gtkmm/viewport.h:
+	* papyrus-extras, papyrus-extras/Makefile.am,
+	  papyrus-extras/example_image.h, papyrus-extras/face.cpp,
+	  papyrus-extras/face.h, papyrus-extras/factory.cpp,
+	  papyrus-extras/factory.h, papyrus-extras/hilbert.cpp,
+	  papyrus-extras/hilbert.h, papyrus-extras/kochcurve.cpp,
+	  papyrus-extras/kochcurve.h, papyrus-extras/kochsnowflake.cpp,
+	  papyrus-extras/kochsnowflake.h, papyrus-extras/sierpinski.cpp,
+	  papyrus-extras/sierpinski.h:
+	* papyrus, papyrus/Makefile.am, papyrus/affineanimator.cpp,
+	  papyrus/affineanimator.h, papyrus/affinecontroller.cpp,
+	  papyrus/affinecontroller.h, papyrus/animator.cpp,
+	  papyrus/animator.h, papyrus/arc.cpp, papyrus/arc.h,
+	  papyrus/beziergon.cpp, papyrus/beziergon.h,
+	  papyrus/bezierline.cpp, papyrus/bezierline.h, papyrus/boxed.cpp,
+	  papyrus/boxed.h, papyrus/canvas.cpp, papyrus/canvas.h,
+	  papyrus/circle.cpp, papyrus/circle.h, papyrus/color_scheme.cpp,
+	  papyrus/color_scheme.h, papyrus/color_utility.h,
+	  papyrus/controller.cpp, papyrus/controller.h,
+	  papyrus/drawable.cpp, papyrus/drawable.h,
+	  papyrus/drawablecontainer.cpp, papyrus/drawablecontainer.h,
+	  papyrus/drawablecontainerinterface.h,
+	  papyrus/drawablecontroller.cpp, papyrus/drawablecontroller.h,
+	  papyrus/enums.h, papyrus/event.h, papyrus/fillstyle.cpp,
+	  papyrus/fillstyle.h, papyrus/freehandsketcher.cpp,
+	  papyrus/freehandsketcher.h, papyrus/grid.cpp, papyrus/grid.h,
+	  papyrus/group.cpp, papyrus/group.h, papyrus/handlebox.cpp,
+	  papyrus/handlebox.h, papyrus/hexgrid.cpp, papyrus/hexgrid.h,
+	  papyrus/hsba.cpp, papyrus/hsba.h, papyrus/hsla.cpp,
+	  papyrus/hsla.h, papyrus/image.cpp, papyrus/image.h,
+	  papyrus/marker.cpp, papyrus/marker.h, papyrus/matrix.cpp,
+	  papyrus/matrix.h, papyrus/object.h, papyrus/papyrus-config.h,
+	  papyrus/path.cpp, papyrus/path.h, papyrus/path_data_lexer.ll,
+	  papyrus/path_data_parser.yy, papyrus/path_element.cpp,
+	  papyrus/path_element.h, papyrus/pointer.h, papyrus/polygon.cpp,
+	  papyrus/polygon.h, papyrus/polyline.cpp, papyrus/polyline.h,
+	  papyrus/rectangle.cpp, papyrus/rectangle.h,
+	  papyrus/reference.cpp, papyrus/reference.h, papyrus/region.cpp,
+	  papyrus/region.h, papyrus/regularpolygon.cpp,
+	  papyrus/regularpolygon.h, papyrus/renderable.h, papyrus/rgba.cpp,
+	  papyrus/rgba.h, papyrus/rotator.cpp, papyrus/rotator.h,
+	  papyrus/scaler.cpp, papyrus/scaler.h, papyrus/selector.cpp,
+	  papyrus/selector.h, papyrus/shape.cpp, papyrus/shape.h,
+	  papyrus/stroke.cpp, papyrus/stroke.h, papyrus/svg.cpp,
+	  papyrus/svg.h, papyrus/svg_transform_lexer.ll,
+	  papyrus/svg_transform_parser.yy, papyrus/text.cpp,
+	  papyrus/text.h, papyrus/translator.cpp, papyrus/translator.h,
+	  papyrus/utility.cpp, papyrus/utility.h, papyrus/viewbox.cpp,
+	  papyrus/viewbox.h, papyrus/x11_color.cpp, papyrus/x11_color.h,
+	  papyrus/x11_color1.cpp, papyrus/x11_color2.cpp,
+	  papyrus/x11_color3.cpp, papyrus/x11_color4.cpp,
+	  papyrus/x11rgb2cpp, papyrus/yuva.cpp, papyrus/yuva.h:
+	* AUTHORS, COPYING, ChangeLog, Doxyfile, Makefile.am, NEWS, README,
+	  TODO, acinclude.m4, aminclude.am, autogen.sh, configure.in,
+	  papyrus-1.0.pc.in, papyrus-extras-1.0.pc.in, papyrus-extras.h,
+	  papyrus-gtkmm-1.0.pc.in, papyrus-gtkmm.h, papyrus.h,
+	  papyrus.spec.m4:
+	* .:
+
+2007-10-28 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+	Added weak smart point defines 
+
+	Papyrus::Renderable: Added several svg utility methods 
+
+	Papyrus::Rectangle: Added concept of x, y, width and height placement to previous concept of width and height since x and y placement is no longer in Drawable 
+
+	Papyrus::Group: Added concept of fill and stroke to groups 
+
+	Papyrus::Object: Added concept of string identifiers 
+
+	Added factory method for creating example SVG 
+
+	Added enumerations for scroll anchors and path element types 
+
+	Papyrus::Drawable: Major overhaul in handling of transforms 
+
+	Papyrus::Canvas: Moved many of the PapyrusGtk::Viewport methods into Papyrus::Canvas 
+
+	Papyrus::Beziergon: added add_vertex() method that takes series of doubles as vertex parameters 
+
+	Papyrus::Arc: Consolidated constructors, added fill and stroke parameters to create methods, examined for const methods 
+
+	Updated demos to reflect changes in papyrus 
+
+	Updated examples to reflect papyrus changes 
+
+	Moved 'simple' example to examples base directory and made it a really simple example. 
+
+	Created demo example for compositing operators 
+
+	Created AffineController demo example 
+
+	Created Bison SVG transform parser and lexer 
+
+	Created Papyrus::Stroke 
+
+	Created Papyrus::SVG 
+
+	Created Papyrus::Reference 
+
+	Created Papyrus::PathElement 
+
+	Created Bison parsers for SVG path data 
+
+	Created Papyrus::Path 
+
+	Created DrawableContainer, DrawableController and DrawableContainerInterface 
+
+	Added cairo logo for testing Papyrus::SVG 
+
+	Created AffineController 
+
+2007-03-10 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.7.1 =====
+
+  Applied a patch from Peter Miller to clean up whitespace
+
+  Removed autoconf checks for cairo version and use cairo's own
+  macros directly.
+
+2007-02-26 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  .pc files: Added support for static linkage and fixed link specification with patch from Mjumbe Wawatu Ukweli
+
+  Papyrus::Group::lower_to_bottom()
+    Fixed bug that checked iterator against beginning instead of end 
+    Changed end item check to return true when the item is already at the bottom 
+    Thanks to Mjumbe Wawatu Ukweli for catching the first and suggesting the improvement for the second. 
+
+2007-02-24 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Papyrus::Image: Applied patch from Peter Miller to create and set images from cairo image surfaces. 
+
+  Papyrus::Group: Fixed bug in lower_to_bottom() with patch provided by Mjumbe Wawatu Ukweli 
+
+2007-01-19 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.7.0 =====
+
+  ViewBox: Renamed to Viewbox
+
+  Viewbox: Added equality and assignment operators
+
+  Moved papyrus.h to top-level directory, so syntax is
+    #include <papyrus.h>
+  rather than
+    #include <papyrus/papyrus.h>
+
+  Drawable: Added show(), hide() and is_visible() methods.
+
+  Drawable: Added set_exclude_from_extents()
+
+  Group: Added concept of layers within a group.
+
+  Group: Removed Children typedef, use Layers and Layer.
+
+  Added Position enum
+
+  Rectangle: Added parameter to create() to accept fill pattern, and added
+  new create() method to allow fill and outline on creation.
+
+  Circle: Added parameter to create() to accept fill pattern, and added
+  new create() method to allow fill and outline on creation.
+
+  Arc: Added parameter to create() to accept fill pattern, and added
+  new create() method to allow fill and outline on creation.
+
+  Boxed: Rewrote to take advantage of group layers and draw box always at
+  lowest possible layer
+
+  Handlebox: Rewrote to take advantage of group layers and draw markers at
+  highest possible layer to keep on top
+
+  Handlebox: Added activate_handle(), deactivate_handle() and is_active()
+
+  Handlebox: Removed clear_handle() methods. Use deactivate_handle() instead.
+
+  Handlebox: Changed handle methods to accept enums rather than ints.
+
+2007-01-07 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.6.1 =====
+
+  Split the X11 color initializer into four files to allow building the std::map on low
+  memory machines
+
+  Improved the grid example to include borders and interval lines.
+
+  Papyrus::Linestyle: Added operator == and operator !=
+
+  Papyrus::Grid: Working now... no longer just a preview
+
+2007-01-02 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.6.0 =====
+
+2007-01-01 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+
+  Papyrus demo: Added Rotator controller demo
+
+  Papyrus demo: Added Scaler controller demo
+
+  Papyrus demo: Added Handlebox Scaler demo
+
+  Papyrus demo: Updated selector demo to use Selector controller's new
+  selection group
+
+  Papyrus demo: Updated translator demo to include a box around selected items
+
+  Papyrus::Boxed
+    Added constructor that accepts a parent group
+
+    Won't draw() if there are no children
+
+  Papyrus::Drawable
+    Added distance_global_to_local() and distance_local_to_global() for transforming
+    distances to/from drawable's local/global coordinate spaces
+
+    Added local_extents() which provides extents after local affine transforms have
+    been applied
+
+    Renamed extents_transformed() to global_extents()
+
+    Added the concept of a drawing parent responsible for drawing order
+
+  Papyrus::Group
+    Added constructor that accepts parent group
+
+    Made most methods such as add(), remove(), raise(), etc. virtual
+
+    Changed m_connections to m_redraw_connections
+
+    Changed m_child_connections to m_changed_connections
+
+    Changed on_child_need_redraw() to append pointer to child as last parameter
+
+    Rewrote add() and remove() methods to account for containing a child as a
+    drawing parent only
+
+    Rewrote draw() to only draw children that this group is responsible for
+    calling render upon
+
+  Papyrus::Handlebox
+    Added constructor that allows specification of which default handles to create
+
+  Papyrus::Selector
+    Changed selection_group to select_from_group notation
+
+    Added constructor that accepts selection group to add/remove selection to/from
+
+    Added extents() to return global extents of selection
+
+  Papyrus::Shape
+    Fixed bug that didn't set fill and outline paths to null after freeing objects
+
+  Papyrus::Translator
+    Added constructor that accepts selection group to add/remove selection to/from
+
+    Fixed bug that didn't set y coordinate of original translation position
+
+  Added Papyrus::Rotator
+
+  Added Papyrus::Scaler
+
+2006-12-03 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+
+  Changed *_boundingbox() notation to *_extents()
+
+  Changed need_redraw() methods to shape_changed()
+
+  Polygon: Use cairo's close_path() rather than drawing to starting vertex.
+
+  Shape: Reimplemented to use cached cairo paths rather than recreating paths
+  every time the shape is redrawn.
+
+  Added Grid drawable.
+
+2006-09-08 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.5.0 =====
+
+  Autotools support for one release for both cairo 1.0 and 1.2
+
+2006-09-07 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Papyrus demo - Added drawables demo
+
+  Papyrus::Bezierline - Added support for relative vertices
+
+  Papyrus::Beziergon - Added support for relative vertices
+
+  Added Papyrus::Hilbert
+
+  Added Papyrus::KochCurve
+
+  Added Papyrus::KochSnowflake
+
+  Papyrus::Polyline - Added relative vertices
+
+  Papyrus::RGBA - Added alpha parameter to string name constructor
+
+  Added Papyrus::Sierpinski
+
+  Removed drawable_test example and merged it into papyrus-demo
+
+2006-09-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Papyrus::Canvas - Added width and height concepts to canvas itself
+
+  Papyrus::Group - Added check to prevent a group from being added to itself.
+
+  Papyrus::Animator - Removed dependency on Glibmm and replaced
+  with a dependency on Glib by changing Glib::TimeoutSource to use
+  glib's timeouts. This also fixed the errors Glibmm apparently has in
+  the call sequence of Glib::TimeoutSource.destroy().
+
+2006-09-03 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Added color scheme example
+
+  Added Translator example to demo
+
+  Added small perl utility to generate X11 color lookup from rgb.txt
+
+  Removed Papyrus::AffineTransformer - the functionality was moved to
+  Papyrus::Translator
+
+  Papyrus::Translator - Added subclass of Selector to allow for translation of
+  a selection
+
+  Papyrus::Text - Added support for font family, slant and weight
+
+  Papyrus::Selector - Changed selection behavior to allow multiple selection
+  with the CTRL key.
+
+  Example image - Changed image slightly to avoid trigraph warning
+
+  Papyrus::Controller - Added enable/disable mechanism
+
+  Added RGB, HSB, HSV, YUV and X11 color classes from the A'Hote library
+
+2006-08-30 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Events - Added notion of state to convey modifier conditions
+
+  Added AffineTransformer
+
+  Papyrus::Selector - Added clear method, cleared signal and grouping behavior
+  when ctrl is pressed while selection occurs.
+
+2006-08-24 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.4.0 =====
+
+2006-08-23 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Changed PapyrusGtk::Viewport from inheritance events to signals
+
+2006-08-24 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.3.1 =====
+
+2006-08-23 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Changed Viewport from inheritance events to signal events
+
+2006-08-20 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Various code cleanup
+
+2006-08-16 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Papyrus::Image - Made default centroid the center of the image
+
+2006-08-15 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.3.0 =====
+
+  Removed button code from simple example and made truly simple
+  by taking out animator stuff
+
+  Moved button example from simple to it's own example
+
+  Finally moved png.h and png.cpp to image.h and image.cpp
+
+  Added example_image() factory function
+
+  Added inline example image
+
+  Added controller events
+
+  Papyrus::Animator - Added signal_advanced
+
+2006-08-14 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  PapyrusGtk::Viewport - Removed support for PapyrusGtk::Manipulators, added
+  support for Papyrus::Controllers
+
+  Changed library location to papyrusmm, but namespace remains PapyrusGtk
+
+  Added PapyrusGtk::AnimatorBounceWidget
+
+  Added PapyrusGtk::AnimatorFrameIntervalWidget
+
+  Added PapyrusGtk::AnimatorFrameRateWidget
+
+  Added Papyrus::Selector
+
+  Added Papyrus::FreehandSketcher
+
+  Added Papyrus::Controller
+
+  Papyrus::Bezierline - Added usage guide
+
+  Papyrus::Beziergon - Added usage guide
+
+  Added Papyrus::AffineAnimator
+
+  Added Papyrus::Animator
+
+2006-08-06 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.2.3 =====
+
+2006-08-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Moved definition of vertices from inside the Polyline class to a general
+  definition within the Papyrus namespace.
+
+  Added Papyrus Quick-Start Guide
+
+  Added Bezierline and Beizergon
+
+2006-08-01 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.2.2 =====
+  Added support for boost smart pointers as alternative to tr1 smart pointers
+
+2006-07-20 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.2.1 =====
+
+  Drawable: Added parent accessor
+
+2006-06-09 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Added papyrusmm-demo
+
+2006-06-07 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.2.0 =====
+
+2006-05-30 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  PapyrusGtk: LineCapButtonBox and LineJoinButtonBox - Added methods to select
+  image preview size.
+
+  Papyrus::Shape - Added an internal bounding box storage for quick
+  recalculation of bounding box when outline style changes.
+
+  Papyrus::Polyline - Removed dependency on VerticesInterfaces and merged
+  interface directly into Polyline. Added start, end and vertex methods, but
+  vertex methods are not currently implemented.
+
+  Papyrus::Marker - Changed *pointing* methods to *facing*
+
+  Papyrus::LineStyle - Added proper copy semantics that will not copy signals
+  as well.
+
+  Factory::example_marker - Updated to return a polyline with the appropriate
+  marker set using the new set_*_marker methods
+
+2006-05-26 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Added LineCapButtonBox, LineJoinButtonBox and LineStyleDialog
+
+  Handlebox: Fixed missing handles by using clone method
+
+2006-05-23 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Added clone() methods to instantiable drawables.
+
+2006-05-07 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.1.11 =====
+
+2006-04-09 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.1.10 =====
+
+2006-03-24 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.1.9 =====
+
+  Added LineWidthComboBox
+
+  Added ArrowComboBox
+
+  Shape: Extended documentation
+
+  Added example_line_join(), example_line_cap() and example_arrow() factory methods.
+
+  Arrow: First working version
+
+  Arc: Added numerous signals that can be connected to monitor when properties
+  change.
+
+2006-03-19 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Drawable: Major cleanup and changes. Added skewing transforms. Added property
+  change signal callback to automatically emit on_changed() signal, eliminating
+  the need for an explicit call in Drawable or children. Added changed signals
+  of properties to public interface. Renamed affine transformation properties
+  to reflect their role as affine transforms.
+
+  Enhanced LineCapComboBox with reference points for line ends.
+
+  Renamed CanvasArea to Viewport to fit closer with terminology used by SVG.
+
+  Removed TextBox which is no longer needed with ViewBoxes present
+
+  Added concept of ViewBoxes similar to SVG's viewBox attribute
+
+  Papyrus::Face: Smiley faces, et. al. for test purposes; kinda like OpenGL's
+  teapots...
+
+2006-03-18 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Renamed all bbox methods and members to the longer but more appropriate name
+  bounding_box.
+
+  Changed BBox to Box to more accurately reflect its upcoming use as more than
+  just a bounding box.
+
+  Modified example_line_cap() to generate a Papyrus::Group that not only
+  illustrates the line caps, but also illustrates internal reference points.
+
+2006-03-17 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.1.8 =====
+
+  Added new factory methods example_line_join() and example_line_cap() to
+  create Polylines demonstrating line joins and line caps.
+
+  Papyrus::Arrow added, but not complete.
+
+  Added PapyrusGtk::LineCapComboBox; a combobox that displays all cairo line
+  cap possibilities.
+
+  Added PapyrusGtk::LineJoinComboBox; a combobox that displays all cairo line
+  join possibilities.
+
+  PapyrusGtk: added utility.h to contain utility functions. The first is
+  create_pixbuf() which takes a Papyrus::Renderable, width and height
+  parameters and returns a Gdk::Pixbuf of the drawing.
+
+2006-03-12 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Text: Fixed rendering bug that needed to calculate extents before scaling.
+
+2006-03-12 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.1.7 =====
+
+  GroupTreemodel: Changed to utilize new property iterators in Idioskopos.
+
+  FreehandSketcher: Added methods to control color, line width, line cap,
+  et. al.
+
+  Group: cleaned up selecting code
+
+2006-03-05 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.6 ==========
+
+  Drawable: Added methods to lock width and/or height to a fixed, constant
+  value. Eventually, this probably needs to be moved out of the class and into
+  a more general constraint handling mechanism that watches the object's
+  signals for changes, but for now this will do.
+
+2006-03-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Long overdue cleanup of configure.in et. al.
+
+  Docs now install into $prefix/share/doc/{package}-{version}.
+
+  Separate doc rpm consolidated into devel rpm.
+
+
+2006-03-03 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Initial port of the Sketchpad from glcanvasmm.
+
+2006-02-28 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Drawable, Shape, Canvas: Documentation updates
+
+2006-02-28 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.5 ==========
+
+  GroupTreeModel: Changed to reflect change in CanvasArea.canvas() that now
+  returns a smart pointer to a Canvas object instead of a reference.
+
+  CanvasArea: Major changes here. More functional as a canvas area widget with
+  methods like scroll_to(x,y), ability to change scrolling point, etc.
+
+  Shape: Added virtual draw_outline() method that defaults to calling
+  draw_shape().
+
+  Drawable: Added is_pickable() method.
+
+  Canvas: Added methods for smart pointer creation and typedef.
+
+  Arc: reimplement the draw_outline() method from parent Shape
+
+2006-02-26 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.4 ==========
+
+  drawable_test: Added scrolling window to introspectable properties.
+
+2006-02-23 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Handlebox: New class derives from Boxed, but also allows placement of
+  specifiable shapes in the traditional placements for user interface handles.
+
+  BBox: Added get_center() method
+
+2006-02-22 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Boxed: Fixed update_bounds() method to place contained Drawables entirely in
+  bounds. Also updated to recalculate own bounding box based on outline width
+  of bounding rectangle.
+
+  Shape: added get_fill() and get_outline() methods. Also implemented
+  Shape::set_bbox() which takes into account the outline width in calculating
+  the bounding box.
+
+  Drawable: moved m_bbox to a private method to enforce access through
+  protected set_bbox() virtual method, which is reimplemented by children such
+  as Shape to add outline width in bbox calculations.
+
+  BBox: Added more proper const method notation.
+
+
+2006-02-21 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.3 ==========
+
+  drawable_test: cleaned up and added controls to test affine transformations
+
+  Boxed: Cleaned up and now works properly. Included example code as well.
+
+  Arc: cleaned and fixed calculation of bounding box on changes
+
+  Drawable: added the concept of a centroid, about which rotation occurs. The
+  centroid is defined as an offset from the (x,y) translation point, and is
+  used to control, for example, the rotation of a rectangle about it's center
+  rather than rotating about the upper left corner. More specific accessors
+  will follow to allow the centroid to be more explicitly set.
+
+  Removed the dependency on the boost libraries by replacing the use of the
+  boost shared pointer with the shared pointer present in tr1.
+
+2006-02-20 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Arc: fixed bug in drawing when a translation occurs. Completion code
+  shouldn't have to take into account x and y values, since underlying draw is
+  relative to 0,0 and then the transform matrix is applied.
+
+2006-02-19 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Group: Implemented a proxy/virtual pair for on_child_changed() to allow
+  children of group to implement their own behavior for responding to child
+  changes.
+
+2006-02-18 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.2 ==========
+
+  Removed dependencies upon Gtkmm from the Papyrus library. The Canvas class
+  isn't much (for now) but will be expanded upon shortly. The former concept
+  of the Canvas was moved into the newly created PapyrusGtk library as a
+  CanvasArea.
+
+  Added support for run-time introspectable properties through the Idioskopos
+  library.
+
+  Moved BoxedGroup to a simpler concept and renamed just Boxed.
+
+  Created PapyrusGtk library separate from Papyrus library to allow separation
+  between components that depend only upon cairo and those that depend upon
+  Gtkmm. This actually returns to an earlier concept from the GLCanvas library
+  that preceeded Papyrus and separated the OpenGL concepts from the Gtkmm
+  concepts.
+
+  The Canvas class remains in Papyrus, and CanvasArea is in PapyrusGtk which
+  holds a Canvas.
+
+2006-02-11 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Changed notation of smart pointers by moving typedef's of smart pointer
+  inside class resulting in name change from ptrDrawable, ptrRectangle, ptr...
+  to Drawable::pointer, Rectangle::pointer, Shape::pointer...
+
+  Updated configure.in and papyrus.spec.in to include RPM package checks for
+  FC4 when creating papyrus.spec
+
+2006-02-07 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  example_factory: Fixed missing creation of TEXTBOX shape.
+
+
+2006-02-05 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.1 ==========
+
+  Added new library header papyrus.h that includes all other headers.
+
+  Added new example, drawable_test, that uses example_factory() to create a
+  comprehensive test/example application for all drawables.
+
+  Papyrus::PNG - Renamed to Papyrus::Image
+
+  Papyrus::Group - Fixed several redraw bugs when adding, removing or clearing
+
+  example_factory: Initial working version
+
+  Papyrus::Canvas
+    Fixed clear() bug by adding queue_draw() after clearing root object since
+    root object was requesting a queue_draw_area(0,0,0,0)
+
+    Added set_scale() convenience method
+
+2006-02-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Moving toward creation of factory methods for drawables. In preparation:
+    Added static create methods for all drawables that return smart pointers.
+    Changed Group methods to require smart pointer rather than reference.
+    Also updated and tested examples to reflect change.
+
+  Changed papyrus::Lines to papyrus::Polyline; in gtkglcanvas this was used to
+  represent a set of distinct lines, but it has now morphed into what is better
+  described by the term 'polyline'
+
+2006-01-27 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Modified to reflect change to cairomm from cairo.
+
+  Removed the Pattern class due to changed to rely on cairomm instead of cairo.
+  The Pattern class is not necessary since cairomm supplies a much more complete one.
+
+  Change drawing operations to use cairomm instead of cairo

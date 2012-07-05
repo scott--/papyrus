@@ -1,0 +1,11 @@
+This release features a new controller called Zoomer providing mouse wheel zooming of drawables.
+
+There is a new viewport widget named ScrolledViewport. It contains a basic viewport, but adds vertical and horizontal scrollers and provides an API very similar to Gtk's ScrolledWindow widget.
+
+Also new are two drawing modes. One allows for intermediate drawing, primarily to support compositing. The other is alpha drawing using cairo's paint_with_alpha() methods.
+
+The drawable controller's have also had the insert() method renamed to add() to match Papyrus::Group's syntax.
+
+Support for rounded rectangles is also added using the corner_radius property of rectangles.
+
+There are also a number of other small enhancements and/or bug fixes.

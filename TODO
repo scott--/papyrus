@@ -1,0 +1,18 @@
+This is the TODO list for the papyrus library
+
+If you are interested in working on any of these, email rvinyard@cs.nmsu.edu
+
+  Copyright (C) 2003-2006 Rick L. Vinyard, Jr.
+
+  Copying and distribution of this file, with or without modification,
+  are permitted in any medium without royalty provided the copyright
+  notice and this notice are preserved.
+
+* During 0.8.*
+  - Continue work on SVG compatability
+  - Figure out what's wrong with Scaler and HandleboxScaler
+  - Finish operators
+
+* Later
+  - Create a pattern dialog and pattern buttons
+  - Reexamine something like idioskopos for run-time introspection

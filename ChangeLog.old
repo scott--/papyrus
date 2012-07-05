@@ -1,0 +1,643 @@
+2007-10-28 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+	Added weak smart point defines 
+
+	Papyrus::Renderable: Added several svg utility methods 
+
+	Papyrus::Rectangle: Added concept of x, y, width and height placement to previous concept of width and height since x and y placement is no longer in Drawable 
+
+	Papyrus::Group: Added concept of fill and stroke to groups 
+
+	Papyrus::Object: Added concept of string identifiers 
+
+	Added factory method for creating example SVG 
+
+	Added enumerations for scroll anchors and path element types 
+
+	Papyrus::Drawable: Major overhaul in handling of transforms 
+
+	Papyrus::Canvas: Moved many of the PapyrusGtk::Viewport methods into Papyrus::Canvas 
+
+	Papyrus::Beziergon: added add_vertex() method that takes series of doubles as vertex parameters 
+
+	Papyrus::Arc: Consolidated constructors, added fill and stroke parameters to create methods, examined for const methods 
+
+	Updated demos to reflect changes in papyrus 
+
+	Updated examples to reflect papyrus changes 
+
+	Moved 'simple' example to examples base directory and made it a really simple example. 
+
+	Created demo example for compositing operators 
+
+	Created AffineController demo example 
+
+	Created Bison SVG transform parser and lexer 
+
+	Created Papyrus::Stroke 
+
+	Created Papyrus::SVG 
+
+	Created Papyrus::Reference 
+
+	Created Papyrus::PathElement 
+
+	Created Bison parsers for SVG path data 
+
+	Created Papyrus::Path 
+
+	Created DrawableContainer, DrawableController and DrawableContainerInterface 
+
+	Added cairo logo for testing Papyrus::SVG 
+
+	Created AffineController 
+
+2007-03-10 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.7.1 =====
+
+  Applied a patch from Peter Miller to clean up whitespace
+
+  Removed autoconf checks for cairo version and use cairo's own
+  macros directly.
+
+2007-02-26 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  .pc files: Added support for static linkage and fixed link specification with patch from Mjumbe Wawatu Ukweli
+
+  Papyrus::Group::lower_to_bottom()
+    Fixed bug that checked iterator against beginning instead of end 
+    Changed end item check to return true when the item is already at the bottom 
+    Thanks to Mjumbe Wawatu Ukweli for catching the first and suggesting the improvement for the second. 
+
+2007-02-24 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Papyrus::Image: Applied patch from Peter Miller to create and set images from cairo image surfaces. 
+
+  Papyrus::Group: Fixed bug in lower_to_bottom() with patch provided by Mjumbe Wawatu Ukweli 
+
+2007-01-19 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.7.0 =====
+
+  ViewBox: Renamed to Viewbox
+
+  Viewbox: Added equality and assignment operators
+
+  Moved papyrus.h to top-level directory, so syntax is
+    #include <papyrus.h>
+  rather than
+    #include <papyrus/papyrus.h>
+
+  Drawable: Added show(), hide() and is_visible() methods.
+
+  Drawable: Added set_exclude_from_extents()
+
+  Group: Added concept of layers within a group.
+
+  Group: Removed Children typedef, use Layers and Layer.
+
+  Added Position enum
+
+  Rectangle: Added parameter to create() to accept fill pattern, and added
+  new create() method to allow fill and outline on creation.
+
+  Circle: Added parameter to create() to accept fill pattern, and added
+  new create() method to allow fill and outline on creation.
+
+  Arc: Added parameter to create() to accept fill pattern, and added
+  new create() method to allow fill and outline on creation.
+
+  Boxed: Rewrote to take advantage of group layers and draw box always at
+  lowest possible layer
+
+  Handlebox: Rewrote to take advantage of group layers and draw markers at
+  highest possible layer to keep on top
+
+  Handlebox: Added activate_handle(), deactivate_handle() and is_active()
+
+  Handlebox: Removed clear_handle() methods. Use deactivate_handle() instead.
+
+  Handlebox: Changed handle methods to accept enums rather than ints.
+
+2007-01-07 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.6.1 =====
+
+  Split the X11 color initializer into four files to allow building the std::map on low
+  memory machines
+
+  Improved the grid example to include borders and interval lines.
+
+  Papyrus::Linestyle: Added operator == and operator !=
+
+  Papyrus::Grid: Working now... no longer just a preview
+
+2007-01-02 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.6.0 =====
+
+2007-01-01 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+
+  Papyrus demo: Added Rotator controller demo
+
+  Papyrus demo: Added Scaler controller demo
+
+  Papyrus demo: Added Handlebox Scaler demo
+
+  Papyrus demo: Updated selector demo to use Selector controller's new
+  selection group
+
+  Papyrus demo: Updated translator demo to include a box around selected items
+
+  Papyrus::Boxed
+    Added constructor that accepts a parent group
+
+    Won't draw() if there are no children
+
+  Papyrus::Drawable
+    Added distance_global_to_local() and distance_local_to_global() for transforming
+    distances to/from drawable's local/global coordinate spaces
+
+    Added local_extents() which provides extents after local affine transforms have
+    been applied
+
+    Renamed extents_transformed() to global_extents()
+
+    Added the concept of a drawing parent responsible for drawing order
+
+  Papyrus::Group
+    Added constructor that accepts parent group
+
+    Made most methods such as add(), remove(), raise(), etc. virtual
+
+    Changed m_connections to m_redraw_connections
+
+    Changed m_child_connections to m_changed_connections
+
+    Changed on_child_need_redraw() to append pointer to child as last parameter
+
+    Rewrote add() and remove() methods to account for containing a child as a
+    drawing parent only
+
+    Rewrote draw() to only draw children that this group is responsible for
+    calling render upon
+
+  Papyrus::Handlebox
+    Added constructor that allows specification of which default handles to create
+
+  Papyrus::Selector
+    Changed selection_group to select_from_group notation
+
+    Added constructor that accepts selection group to add/remove selection to/from
+
+    Added extents() to return global extents of selection
+
+  Papyrus::Shape
+    Fixed bug that didn't set fill and outline paths to null after freeing objects
+
+  Papyrus::Translator
+    Added constructor that accepts selection group to add/remove selection to/from
+
+    Fixed bug that didn't set y coordinate of original translation position
+
+  Added Papyrus::Rotator
+
+  Added Papyrus::Scaler
+
+2006-12-03 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+
+  Changed *_boundingbox() notation to *_extents()
+
+  Changed need_redraw() methods to shape_changed()
+
+  Polygon: Use cairo's close_path() rather than drawing to starting vertex.
+
+  Shape: Reimplemented to use cached cairo paths rather than recreating paths
+  every time the shape is redrawn.
+
+  Added Grid drawable.
+
+2006-09-08 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.5.0 =====
+
+  Autotools support for one release for both cairo 1.0 and 1.2
+
+2006-09-07 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Papyrus demo - Added drawables demo
+
+  Papyrus::Bezierline - Added support for relative vertices
+
+  Papyrus::Beziergon - Added support for relative vertices
+
+  Added Papyrus::Hilbert
+
+  Added Papyrus::KochCurve
+
+  Added Papyrus::KochSnowflake
+
+  Papyrus::Polyline - Added relative vertices
+
+  Papyrus::RGBA - Added alpha parameter to string name constructor
+
+  Added Papyrus::Sierpinski
+
+  Removed drawable_test example and merged it into papyrus-demo
+
+2006-09-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Papyrus::Canvas - Added width and height concepts to canvas itself
+
+  Papyrus::Group - Added check to prevent a group from being added to itself.
+
+  Papyrus::Animator - Removed dependency on Glibmm and replaced
+  with a dependency on Glib by changing Glib::TimeoutSource to use
+  glib's timeouts. This also fixed the errors Glibmm apparently has in
+  the call sequence of Glib::TimeoutSource.destroy().
+
+2006-09-03 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Added color scheme example
+
+  Added Translator example to demo
+
+  Added small perl utility to generate X11 color lookup from rgb.txt
+
+  Removed Papyrus::AffineTransformer - the functionality was moved to
+  Papyrus::Translator
+
+  Papyrus::Translator - Added subclass of Selector to allow for translation of
+  a selection
+
+  Papyrus::Text - Added support for font family, slant and weight
+
+  Papyrus::Selector - Changed selection behavior to allow multiple selection
+  with the CTRL key.
+
+  Example image - Changed image slightly to avoid trigraph warning
+
+  Papyrus::Controller - Added enable/disable mechanism
+
+  Added RGB, HSB, HSV, YUV and X11 color classes from the A'Hote library
+
+2006-08-30 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Events - Added notion of state to convey modifier conditions
+
+  Added AffineTransformer
+
+  Papyrus::Selector - Added clear method, cleared signal and grouping behavior
+  when ctrl is pressed while selection occurs.
+
+2006-08-24 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.4.0 =====
+
+2006-08-23 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Changed PapyrusGtk::Viewport from inheritance events to signals
+
+2006-08-24 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.3.1 =====
+
+2006-08-23 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Changed Viewport from inheritance events to signal events
+
+2006-08-20 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Various code cleanup
+
+2006-08-16 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Papyrus::Image - Made default centroid the center of the image
+
+2006-08-15 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.3.0 =====
+
+  Removed button code from simple example and made truly simple
+  by taking out animator stuff
+
+  Moved button example from simple to it's own example
+
+  Finally moved png.h and png.cpp to image.h and image.cpp
+
+  Added example_image() factory function
+
+  Added inline example image
+
+  Added controller events
+
+  Papyrus::Animator - Added signal_advanced
+
+2006-08-14 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  PapyrusGtk::Viewport - Removed support for PapyrusGtk::Manipulators, added
+  support for Papyrus::Controllers
+
+  Changed library location to papyrusmm, but namespace remains PapyrusGtk
+
+  Added PapyrusGtk::AnimatorBounceWidget
+
+  Added PapyrusGtk::AnimatorFrameIntervalWidget
+
+  Added PapyrusGtk::AnimatorFrameRateWidget
+
+  Added Papyrus::Selector
+
+  Added Papyrus::FreehandSketcher
+
+  Added Papyrus::Controller
+
+  Papyrus::Bezierline - Added usage guide
+
+  Papyrus::Beziergon - Added usage guide
+
+  Added Papyrus::AffineAnimator
+
+  Added Papyrus::Animator
+
+2006-08-06 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.2.3 =====
+
+2006-08-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Moved definition of vertices from inside the Polyline class to a general
+  definition within the Papyrus namespace.
+
+  Added Papyrus Quick-Start Guide
+
+  Added Bezierline and Beizergon
+
+2006-08-01 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.2.2 =====
+  Added support for boost smart pointers as alternative to tr1 smart pointers
+
+2006-07-20 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.2.1 =====
+
+  Drawable: Added parent accessor
+
+2006-06-09 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Added papyrusmm-demo
+
+2006-06-07 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.2.0 =====
+
+2006-05-30 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  PapyrusGtk: LineCapButtonBox and LineJoinButtonBox - Added methods to select
+  image preview size.
+
+  Papyrus::Shape - Added an internal bounding box storage for quick
+  recalculation of bounding box when outline style changes.
+
+  Papyrus::Polyline - Removed dependency on VerticesInterfaces and merged
+  interface directly into Polyline. Added start, end and vertex methods, but
+  vertex methods are not currently implemented.
+
+  Papyrus::Marker - Changed *pointing* methods to *facing*
+
+  Papyrus::LineStyle - Added proper copy semantics that will not copy signals
+  as well.
+
+  Factory::example_marker - Updated to return a polyline with the appropriate
+  marker set using the new set_*_marker methods
+
+2006-05-26 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Added LineCapButtonBox, LineJoinButtonBox and LineStyleDialog
+
+  Handlebox: Fixed missing handles by using clone method
+
+2006-05-23 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  Added clone() methods to instantiable drawables.
+
+2006-05-07 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.1.11 =====
+
+2006-04-09 Rick L. Vinyard, Jr. <rvinyard@cs.nmsu.edu>
+  ===== 0.1.10 =====
+
+2006-03-24 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.1.9 =====
+
+  Added LineWidthComboBox
+
+  Added ArrowComboBox
+
+  Shape: Extended documentation
+
+  Added example_line_join(), example_line_cap() and example_arrow() factory methods.
+
+  Arrow: First working version
+
+  Arc: Added numerous signals that can be connected to monitor when properties
+  change.
+
+2006-03-19 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Drawable: Major cleanup and changes. Added skewing transforms. Added property
+  change signal callback to automatically emit on_changed() signal, eliminating
+  the need for an explicit call in Drawable or children. Added changed signals
+  of properties to public interface. Renamed affine transformation properties
+  to reflect their role as affine transforms.
+
+  Enhanced LineCapComboBox with reference points for line ends.
+
+  Renamed CanvasArea to Viewport to fit closer with terminology used by SVG.
+
+  Removed TextBox which is no longer needed with ViewBoxes present
+
+  Added concept of ViewBoxes similar to SVG's viewBox attribute
+
+  Papyrus::Face: Smiley faces, et. al. for test purposes; kinda like OpenGL's
+  teapots...
+
+2006-03-18 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Renamed all bbox methods and members to the longer but more appropriate name
+  bounding_box.
+
+  Changed BBox to Box to more accurately reflect its upcoming use as more than
+  just a bounding box.
+
+  Modified example_line_cap() to generate a Papyrus::Group that not only
+  illustrates the line caps, but also illustrates internal reference points.
+
+2006-03-17 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.1.8 =====
+
+  Added new factory methods example_line_join() and example_line_cap() to
+  create Polylines demonstrating line joins and line caps.
+
+  Papyrus::Arrow added, but not complete.
+
+  Added PapyrusGtk::LineCapComboBox; a combobox that displays all cairo line
+  cap possibilities.
+
+  Added PapyrusGtk::LineJoinComboBox; a combobox that displays all cairo line
+  join possibilities.
+
+  PapyrusGtk: added utility.h to contain utility functions. The first is
+  create_pixbuf() which takes a Papyrus::Renderable, width and height
+  parameters and returns a Gdk::Pixbuf of the drawing.
+
+2006-03-12 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Text: Fixed rendering bug that needed to calculate extents before scaling.
+
+2006-03-12 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ===== 0.1.7 =====
+
+  GroupTreemodel: Changed to utilize new property iterators in Idioskopos.
+
+  FreehandSketcher: Added methods to control color, line width, line cap,
+  et. al.
+
+  Group: cleaned up selecting code
+
+2006-03-05 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.6 ==========
+
+  Drawable: Added methods to lock width and/or height to a fixed, constant
+  value. Eventually, this probably needs to be moved out of the class and into
+  a more general constraint handling mechanism that watches the object's
+  signals for changes, but for now this will do.
+
+2006-03-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Long overdue cleanup of configure.in et. al.
+
+  Docs now install into $prefix/share/doc/{package}-{version}.
+
+  Separate doc rpm consolidated into devel rpm.
+
+
+2006-03-03 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Initial port of the Sketchpad from glcanvasmm.
+
+2006-02-28 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Drawable, Shape, Canvas: Documentation updates
+
+2006-02-28 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.5 ==========
+
+  GroupTreeModel: Changed to reflect change in CanvasArea.canvas() that now
+  returns a smart pointer to a Canvas object instead of a reference.
+
+  CanvasArea: Major changes here. More functional as a canvas area widget with
+  methods like scroll_to(x,y), ability to change scrolling point, etc.
+
+  Shape: Added virtual draw_outline() method that defaults to calling
+  draw_shape().
+
+  Drawable: Added is_pickable() method.
+
+  Canvas: Added methods for smart pointer creation and typedef.
+
+  Arc: reimplement the draw_outline() method from parent Shape
+
+2006-02-26 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.4 ==========
+
+  drawable_test: Added scrolling window to introspectable properties.
+
+2006-02-23 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Handlebox: New class derives from Boxed, but also allows placement of
+  specifiable shapes in the traditional placements for user interface handles.
+
+  BBox: Added get_center() method
+
+2006-02-22 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Boxed: Fixed update_bounds() method to place contained Drawables entirely in
+  bounds. Also updated to recalculate own bounding box based on outline width
+  of bounding rectangle.
+
+  Shape: added get_fill() and get_outline() methods. Also implemented
+  Shape::set_bbox() which takes into account the outline width in calculating
+  the bounding box.
+
+  Drawable: moved m_bbox to a private method to enforce access through
+  protected set_bbox() virtual method, which is reimplemented by children such
+  as Shape to add outline width in bbox calculations.
+
+  BBox: Added more proper const method notation.
+
+
+2006-02-21 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.3 ==========
+
+  drawable_test: cleaned up and added controls to test affine transformations
+
+  Boxed: Cleaned up and now works properly. Included example code as well.
+
+  Arc: cleaned and fixed calculation of bounding box on changes
+
+  Drawable: added the concept of a centroid, about which rotation occurs. The
+  centroid is defined as an offset from the (x,y) translation point, and is
+  used to control, for example, the rotation of a rectangle about it's center
+  rather than rotating about the upper left corner. More specific accessors
+  will follow to allow the centroid to be more explicitly set.
+
+  Removed the dependency on the boost libraries by replacing the use of the
+  boost shared pointer with the shared pointer present in tr1.
+
+2006-02-20 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Arc: fixed bug in drawing when a translation occurs. Completion code
+  shouldn't have to take into account x and y values, since underlying draw is
+  relative to 0,0 and then the transform matrix is applied.
+
+2006-02-19 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Group: Implemented a proxy/virtual pair for on_child_changed() to allow
+  children of group to implement their own behavior for responding to child
+  changes.
+
+2006-02-18 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.2 ==========
+
+  Removed dependencies upon Gtkmm from the Papyrus library. The Canvas class
+  isn't much (for now) but will be expanded upon shortly. The former concept
+  of the Canvas was moved into the newly created PapyrusGtk library as a
+  CanvasArea.
+
+  Added support for run-time introspectable properties through the Idioskopos
+  library.
+
+  Moved BoxedGroup to a simpler concept and renamed just Boxed.
+
+  Created PapyrusGtk library separate from Papyrus library to allow separation
+  between components that depend only upon cairo and those that depend upon
+  Gtkmm. This actually returns to an earlier concept from the GLCanvas library
+  that preceeded Papyrus and separated the OpenGL concepts from the Gtkmm
+  concepts.
+
+  The Canvas class remains in Papyrus, and CanvasArea is in PapyrusGtk which
+  holds a Canvas.
+
+2006-02-11 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Changed notation of smart pointers by moving typedef's of smart pointer
+  inside class resulting in name change from ptrDrawable, ptrRectangle, ptr...
+  to Drawable::pointer, Rectangle::pointer, Shape::pointer...
+
+  Updated configure.in and papyrus.spec.in to include RPM package checks for
+  FC4 when creating papyrus.spec
+
+2006-02-07 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  example_factory: Fixed missing creation of TEXTBOX shape.
+
+
+2006-02-05 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  ========== Release 0.1.1 ==========
+
+  Added new library header papyrus.h that includes all other headers.
+
+  Added new example, drawable_test, that uses example_factory() to create a
+  comprehensive test/example application for all drawables.
+
+  Papyrus::PNG - Renamed to Papyrus::Image
+
+  Papyrus::Group - Fixed several redraw bugs when adding, removing or clearing
+
+  example_factory: Initial working version
+
+  Papyrus::Canvas
+    Fixed clear() bug by adding queue_draw() after clearing root object since
+    root object was requesting a queue_draw_area(0,0,0,0)
+
+    Added set_scale() convenience method
+
+2006-02-04 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Moving toward creation of factory methods for drawables. In preparation:
+    Added static create methods for all drawables that return smart pointers.
+    Changed Group methods to require smart pointer rather than reference.
+    Also updated and tested examples to reflect change.
+
+  Changed papyrus::Lines to papyrus::Polyline; in gtkglcanvas this was used to
+  represent a set of distinct lines, but it has now morphed into what is better
+  described by the term 'polyline'
+
+2006-01-27 Rick L Vinyard Jr <rvinyard@cs.nmsu.edu>
+  Modified to reflect change to cairomm from cairo.
+
+  Removed the Pattern class due to changed to rely on cairomm instead of cairo.
+  The Pattern class is not necessary since cairomm supplies a much more complete one.
+
+  Change drawing operations to use cairomm instead of cairo

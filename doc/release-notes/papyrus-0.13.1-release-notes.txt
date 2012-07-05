@@ -1,0 +1,14 @@
+This release is primarily a bugfix release. There was an overload resolution 
+bug with the virtual and non-virtual render() methods. Because of scoping
+rules, the virtual methods were not seen by descendants of Renderable
+causing an infinite recursion of the virtual method resulting in a
+segfault.
+
+To remedy this, two new macros have been created: PAPYRUS_RENDERABLE()
+and PAPYRUS_DRAWABLE(). In addition to adding the using directive
+to a class these macros provide some of the other repetitive code
+used in each descendant of Renderable and Drawable, including
+declaration of smart pointer types.
+
+Additionally, a small bug in the shapes example program has been fixed.
+

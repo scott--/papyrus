@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+
+if ( $ARGV[0] )
+{
+  open( RGBTXT, $ARGV[0] );
+}
+else
+{
+  open( RGBTXT, "/usr/share/X11/rgb.txt" );
+}
+
+@lines = <RGBTXT>;
+close( RGBTXT );
+
+open( CPP, ">x11_color.cpp" );
+
+print CPP <<HEADER;
+/***************************************************************************
+ *   Copyright (C) 2006 by Rick L. Vinyard, Jr.                            *
+ *   rvinyard@cs.nmsu.edu                                                  *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Lesser General Public License as        *
+ *   published by the Free Software Foundation version 3.                  *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU Lesser General Public      *
+ *   License along with this library; if not, write to the                 *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA              *
+ ***************************************************************************/
+#include "x11_color.h"
+
+#include <papyrus/rgba.h>
+
+namespace Papyrus
+{
+
+  X11Colors x11_colors( )
+  {
+    X11Colors colors;
+HEADER
+
+foreach $line (@lines)
+{
+  chop( $line );
+  if ( $line =~/(\d+)\s+(\d+)\s+(\d+)\s+([\s\w]+)$/ )
+  {
+    $r = $1/255.0;
+    $g = $2/255.0;
+    $b = $3/255.0;
+    print CPP "    colors[\"$4\"] = RGBA( $r, $g, $b );\n";
+  }
+}
+
+print CPP <<FOOTER;
+    return colors;
+  };
+
+  RGBA x11_color( const std::string& name ) {
+    static X11Colors colors = x11_colors();
+    X11Colors::iterator i;
+    i = colors.find(name);
+    if ( i != colors.end() )
+      return i->second;
+    else
+      return RGBA();
+  }
+
+}
+FOOTER
+
+close( CPP );

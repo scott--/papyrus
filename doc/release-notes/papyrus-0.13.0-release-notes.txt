@@ -1,0 +1,10 @@
+This release adds support for linear and radial gradients. The paint
+hierarchy has also been restructured and as a result a new wrapper for
+cairo contexts has been implemented that includes internal state
+values. The Paint class is now a top level ancestor for all paints,
+including the gradients. The former solid colors that were supplied
+by Paint can now be found in its descendant Color.
+
+Other changes include a fix in ScrolledViewport for a display bug and
+the restructuring of several primitives such as Point, Vertex and
+LineSegment.
