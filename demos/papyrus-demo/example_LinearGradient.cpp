@@ -112,7 +112,7 @@ void Example_LinearGradient::redraw_canvas( )
     gradient->push_back( Papyrus::Gradient::Stop( Papyrus::RGBA("green"), 0.45 ) );
     gradient->push_back( Papyrus::Gradient::Stop( Papyrus::RGBA("green"), 0.55 ) );
     gradient->push_back( Papyrus::Gradient::Stop( Papyrus::RGBA("blue"), 0.9 ) );
-    if ( gradient ) shape->set_fill( std::shared_ptr<Papyrus::Paint>(gradient) );
+    if ( gradient ) shape->set_fill( Papyrus::Paint::pointer(gradient) );
   }
 
   m_ScrolledViewport.canvas()->add( m_Drawable );

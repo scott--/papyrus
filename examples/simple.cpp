@@ -17,14 +17,14 @@
  *   License along with the papyrus library. If not, see                   *
  *   <http://www.gnu.org/licenses/>.                                       *
  ***************************************************************************/
+#include <gtkmm.h>
+#include <papyrus-gtkmm.h>
+
 #define WINDOW_SIZE 200
 #define X -75
 #define Y -50
 #define WIDTH 150
 #define HEIGHT 100
-
-#include <gtkmm.h>
-#include <papyrus-gtkmm.h>
 
 int main (int argc, char *argv[])
 {
