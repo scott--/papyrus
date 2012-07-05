@@ -24,7 +24,7 @@
   // Headers for smart pointers
   #ifdef PAPYRUS_USE_BOOST_SMART_POINTER
     #include <boost/shared_ptr.hpp>
-    //#include <boost/weak_ptr.hpp>
+    #include <boost/weak_ptr.hpp>
     #define PapyrusPointer boost::shared_ptr
     #define PapyrusWeakPointer boost::weak_ptr
     #define papyrus_static_pointer_cast  boost::static_pointer_cast
