@@ -228,7 +228,10 @@ namespace Papyrus
 
     // HACK because cairomm doesn't have a method that takes a const parameter
     std::valarray<double> dash_array = m_dash_array;
-    if ( m_dash_array.size() > 0 ) cairo->set_dash ( dash_array, m_dash_offset );
+    if ( m_dash_array.size() > 0 ) 
+		cairo->set_dash ( dash_array, m_dash_offset );
+	else
+		cairo->unset_dash();
   }
 
   sigc::signal<void> Stroke::signal_paint_changed()
